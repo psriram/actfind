@@ -2,10 +2,10 @@
 # FileName="Connection_php_mysql.htm"
 # Type="MYSQL"
 # HTTP="true"
-$hostname_connMain = "remote-mysql3.servage.net";
-$database_connMain = "prejobman";
-$username_connMain = "prejobman";
-$password_connMain = "shaklee1";
+$hostname_connMain = "localhost";
+$database_connMain = "act_finder";
+$username_connMain = "user";
+$password_connMain = "password";
 $connMain = mysql_connect($hostname_connMain, $username_connMain, $password_connMain) or trigger_error(mysql_error(),E_USER_ERROR); 
 mysql_select_db($database_connMain, $connMain) or die('could not select db');
 $dsn_connMain = 'mysql:dbname='.$database_connMain.';host='.$hostname_connMain;
