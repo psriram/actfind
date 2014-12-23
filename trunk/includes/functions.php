@@ -287,7 +287,7 @@ function getString($array) {
   $get = $_GET;
   if (isset($get['locationFind'])) unset($get['locationFind']);
   if (isset($get['city_id'])) unset($get['city_id']);
-  if (isset($get['q'])) unset($get['q']);
+  if (isset($get['p'])) unset($get['p']);
   if (!empty($array)) {
     foreach ($array as $ele) {
       if (isset($get[$ele])) unset($get[$ele]);
