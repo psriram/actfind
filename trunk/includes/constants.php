@@ -3,11 +3,13 @@
 define('SITEDIR', dirname(dirname(__FILE__)));
 $dir = dirname($_SERVER['PHP_SELF']);
 if ($dir == '/') $dir = '';
+
 define('SITENAME', 'ActivityFinder');
 define('HTTPPATH', 'http://'.$_SERVER['HTTP_HOST'].$dir);
 define('ROOTHTTPPATH', $dir);
 
-define('APIDIR', '/api');
+define('ROOTDIR', dirname(dirname(__FILE__)));
+define('APIDIR', $dir.'/api');
 define('APIHTTPPATH', 'http://'.$_SERVER['HTTP_HOST'].APIDIR);
 define('LOGINURL', '/users/login');
 

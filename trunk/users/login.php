@@ -1,31 +1,29 @@
 <?php
-$pageTitle = 'Login Details';
-
-require_once SITEDIR.'/api/googleauth/src/Google_Client.php'; // include the required calss files for google login
-require_once SITEDIR.'/api/googleauth/src/contrib/Google_PlusService.php';
-require_once SITEDIR.'/api/googleauth/src/contrib/Google_Oauth2Service.php';
-
+$pageTitle = 'Login To Site';
+require_once 'configs.php';
+try {
 $client = new Google_Client();
 $client->setApplicationName("Google Authentication"); // Set your applicatio name
 $client->setScopes(array('https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/plus.me')); // set scope during user login
 $client->setClientId(CLIENTID); // paste the client id which you get from google API Console
 $client->setClientSecret(CLIENTSECRET); // set the client secret
 $client->setDeveloperKey(DEVELOPERKEY); // Developer key
-$url = 'http://' . $_SERVER['HTTP_HOST'] . LOGINURL;
+$url = HTTPPATH . LOGINURL;
 $client->setRedirectUri($url); // paste the redirect URI where you given in APi Console. You will get the Access Token here during login success
 $plus 		= new Google_PlusService($client);
 $oauth2 	= new Google_Oauth2Service($client); // Call the OAuth2 class for get email address
 if(isset($_GET['logout'])) {
   unset($_SESSION['access_token']);
   unset($_SESSION['gplusuer']);
-  session_destroy();
-  header('Location: http://' . $_SERVER['HTTP_HOST'] . LOGINURL);
+  unset($_SESSION['user']);
+  unset($_SESSION['settings']);
+  header('Location: '.HTTPPATH . LOGINURL);
   exit;
 }
 if(isset($_GET['code'])) {
 	$client->authenticate(); // Authenticate
 	$_SESSION['access_token'] = $client->getAccessToken(); // get the access token here
-	header('Location: http://' . $_SERVER['HTTP_HOST'] . LOGINURL);
+	header('Location: '.HTTPPATH . LOGINURL);
   exit;
 }
 
@@ -35,8 +33,9 @@ if(isset($_SESSION['access_token'])) {
 
 $title = 'Title';
 if ($client->getAccessToken()) {
-  $user = $oauth2->userinfo->get();
-  save($user, 'googleplus');
+  $pageTitle = 'Login Successfull';
+  $user 		= $oauth2->userinfo->get();
+	save($user, 'googleplus');
   $_SESSION['user'] = $user;
   $details = userDetails($_SESSION['user']['id'], 0);
   $_SESSION['user']['access_level'] = 'member';
@@ -63,9 +62,16 @@ if ($client->getAccessToken()) {
 if(isset($me)){ 
 	$_SESSION['gplusuer'] = $me; // start the session
 }
+} catch (Exception $e) {
+  $error = $e->getMessage();
+}
+echo APIDIR;
 ?>
+<h3><?php echo $pageTitle; ?></h3>
 <?php 
-if(isset($authUrl)) {
+if (!empty($error)) {
+  echo '<div class="error">'.$error.'</div>';
+} else if(isset($authUrl)) {
 	echo "<a class='login' href='$authUrl'><img src=\"".APIDIR."/googleauth/google-login-button-asif18.png\" alt=\"Google login\" title=\"login with google\" /></a>";
 	} else {
 		?>

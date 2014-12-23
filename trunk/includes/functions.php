@@ -281,3 +281,79 @@ if (!function_exists("decryptAES")) {
       return $decrypted;
   }
 }
+
+
+function getString($array) {
+  $get = $_GET;
+  if (isset($get['locationFind'])) unset($get['locationFind']);
+  if (isset($get['city_id'])) unset($get['city_id']);
+  if (isset($get['q'])) unset($get['q']);
+  if (!empty($array)) {
+    foreach ($array as $ele) {
+      if (isset($get[$ele])) unset($get[$ele]);
+    }
+  }
+  $newparam = array();
+  if (!empty($get)) {
+    foreach ($get as $k => $v) {
+      $newparam[] = $k.'='.urlencode($v);
+    }
+  }
+  $query = '';
+  if (count($newparam) != 0) {
+    $query = "&" . htmlentities(implode("&", $newparam));
+  }
+  return $query;
+}
+
+
+
+function encryptText($text)
+{
+  require_once 'Crypt/Blowfish.php';
+  $bf = new Crypt_Blowfish(ENCRYPTKEY);
+  $encrypted = $bf->encrypt($text);
+  return bin2hex($encrypted);
+}
+
+function decryptText($text)
+{
+  require_once 'Crypt/Blowfish.php';
+  $bf = new Crypt_Blowfish(ENCRYPTKEY);
+  $plaintext = $bf->decrypt(convertString(trim($text)));
+  return trim($plaintext);
+}
+
+
+if (!function_exists('regexp')) {
+	function regexp($input, $regexp, $casesensitive=false)
+	{
+		if ($casesensitive === true) {
+			if (preg_match_all("/$regexp/sU", $input, $matches, PREG_SET_ORDER)) {
+				return $matches;
+			}
+		} else {
+			if (preg_match_all("/$regexp/siU", $input, $matches, PREG_SET_ORDER)) {
+				return $matches;
+			}
+		}
+
+		return false;
+	}
+}
+if (!function_exists('urltoword')) {
+	function urltoword($url)
+	{
+		$url = str_replace('-', ' ', $url);
+		$url = ucwords(strtolower($url));
+		$url = trim($url);
+		return $url;
+	}
+}
+
+function verifyGatewaySignature($proposedSignature, $checkoutId, $amount) {
+    $amount = number_format($amount, 2);
+    $signature = hash_hmac("sha1", "{$checkoutId}&{$amount}", $apiSecret);
+
+    return $signature == $proposedSignature;
+}
