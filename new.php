@@ -36,23 +36,6 @@ if ($resultModule['new_page'] == 0) {
 
 $pageTitle = 'New "'.$resultModule['menu_display_name']. '" ';
 
-/*if (!empty($_GET['rel_id'])) {
-  $query = "SELECT * FROM z_modules WHERE module_id = ?";
-  $resultModuleRelated = $modelGeneral->fetchRow($query, array($_GET['rel_id']), $t);
-  if (empty($resultModuleRelated)) {
-    throw new Exception('Could not find the related module');
-  }
-  
-  if (!empty($_GET['detail_id'])) {
-    $tablenameDetail = 'auto_'.$resultModuleRelated['module_name'];
-    $queryDetail = "SELECT a.* FROM $tablenameDetail as a LEFT JOIN google_auth as u ON a.uid = u.uid WHERE 1 AND a.id = ?";
-    $rowResultDetail = $modelGeneral->fetchRow($queryDetail, array($_GET['detail_id']), 0);
-    if (empty($rowResultDetail)) {
-      throw new Exception('Could not find the related record id');
-    }
-    $pageTitle .= !empty($rowResultDetail['title']) ? ' for "'.$rowResultDetail['title'].'"' : '';
-  }
-}*/
 
 $query = "SELECT * FROM z_modules_fields WHERE module_id = ? ORDER BY sorting ASC";
 $resultModuleFields = $modelGeneral->fetchAll($query, array($colname_rsModule), $t);
@@ -138,22 +121,7 @@ if (isset($_POST['MM_Insert']) && $_POST['MM_Insert'] == 'form1') {
       if (isset($data['MM_Insert'])) unset($data['MM_Insert']);
       if (isset($data['submit'])) unset($data['submit']);
       $data['id'] = guid();
-      $data['uid'] = $_SESSION['user']['id'];
-      //adding in relation table
-      /*
-      if (!empty($_GET['detail_id']) && !empty($_GET['rel_id'])) {
-        $xdata = array();
-        $xdata['main_id'] = $colname_rsModule;
-        $xdata['rel_id'] = $_GET['rel_id'];
-        $xdata['main_detail_id'] = $data['id'];
-        $xdata['rel_detail_id'] = $_GET['detail_id'];
-        $xdata['apply_uid'] = $data['uid'];
-        $xdata['related_created_dt'] = date('Y-m-d H:i:s');
-        $modelGeneral->addDetails('auto_pre_related', $xdata);
-      }*/
-      //relation table ends
-
-      $data['city_id'] = $globalCity['id'];
+      $data['user_id'] = $_SESSION['user']['id'];
       $data['module_id'] = $colname_rsModule;
       $data['rc_created_dt'] = date('Y-m-d H:i:s');
       $data['rc_updated_dt'] = date('Y-m-d H:i:s');
@@ -324,7 +292,7 @@ include(SITEDIR.'/libraries/addresses/addressGrabberHead2.php');
   <div class="col-lg-12">
     <h3><?php echo $pageTitle; ?></h3>
     <?php if (!empty($error)) { echo '<div class="error">'.$error.'</div>'; } ?>
-    <p><a href="<?php echo $currentURL; ?>/my?<?php echo $get_rsView; ?>">Back To Browse</a></p>
+    <p><a href="<?php echo HTTPPATH; ?>/my?<?php echo $get_rsView; ?>">Back To Browse</a></p>
   </div>
 </div>
 <form name="form1" id="form1" method="post" action="<?php if ($id) echo $currentURL."/auto/edit?id=".$id."&module_id=".$colname_rsModule.$extendedURL; else echo $currentURL."/auto/new?module_id=".$colname_rsModule.$extendedURL; ?>">

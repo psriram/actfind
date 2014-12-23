@@ -63,7 +63,7 @@ $distanceWhere = '';
 $searchCriteria = '';
 if (!empty($my)) {
   $cacheTime = 0;
-  $searchCriteria .= ' AND a.rc_deleted = 0 AND a.uid = '.$modelGeneral->qstr($_SESSION['user']['id']);
+  $searchCriteria .= ' AND a.rc_deleted = 0 AND a.user_id = '.$modelGeneral->qstr($_SESSION['user']['id']);
 } else {
     $searchCriteria .= ' AND a.rc_approved = 1 AND a.rc_status = 1 AND a.rc_deleted = 0';
 }
@@ -91,14 +91,10 @@ foreach ($resultModuleFields as $k => $v) {
       $value = $_GET[$v['field_name']]['max'];
       $searchCriteria .= ' AND a.'.$v['field_name'].' <= '.GetSQLValueString($value, 'double');
     }
-  } else if ($v['field_type'] == 'addressbox') {
+  } else if ($v['field_type'] == 'addressbox' && !empty($_GET['lat']) && !empty($_GET['lng'])) {
     $locationBox = true;
     if (empty($_GET['radius'])) {
       $_GET['radius'] = 30;
-    }
-    if (empty($_GET['lat']) && empty($_GET['lng'])) {
-      $_GET['lat'] = $globalCity['latitude'];
-      $_GET['lng'] = $globalCity['longitude'];
     }
     $distanceFrom = ", (ROUND(DEGREES(ACOS(SIN(RADIANS(".GetSQLValueString($_GET['lat'], 'double').")) * SIN(RADIANS(a.clatitude)) + COS(RADIANS(".GetSQLValueString($_GET['lat'], 'double').")) * COS(RADIANS(a.clatitude)) * COS(RADIANS(".GetSQLValueString($_GET['lng'], 'double')." -(a.clongitude)))))*60*1.1515,2)) as distance";
     $orderBy = ' ORDER BY distance DESC, a.id DESC';
@@ -197,22 +193,11 @@ $search_box = ob_get_clean();
 $pageTitle = 'Search/Browse '.$resultModule['menu_display_name'];
 
 ?>
-<div class="page-header">
-  <h1><?php 
-  $myHead = '';
-  if (!empty($my)) {
-    $myHead = 'My ';
-  }
-  if (!empty($locationBox)) {
-    $myHead .= $globalCity['city'].' ';
-  }
-  echo $myHead.' "'.(!empty($resultModule['page_title']) ? $resultModule['page_title'] : $resultModule['menu_display_name']).'"'; ?></h1>
-</div>
 <?php if ($totalRows_rsView > 0) { // Show if recordset not empty ?>
 <!--Display List Starts Here -->
 
 <?php
-include(SITEDIR.'/mods/auto/display_list_template/'.$resultModule['display_list_template'].'.php');
+include(SITEDIR.'/display_list_template/'.$resultModule['display_list_template'].'.php');
 ?>
 
 <p><strong>Records <?php echo ($startRow_rsView + 1) ?> to <?php echo min($startRow_rsView + $maxRows_rsView, $totalRows_rsView) ?> of <?php echo $totalRows_rsView ?></strong>
