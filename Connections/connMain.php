@@ -17,6 +17,7 @@ include($site_path.'/libraries/adodb/adodb.inc.php');
 
 $ADODB_CACHE_DIR = $site_path.'/cache/ADODB_cache';
 $connMainAdodb = ADONewConnection('mysql');
+
 $connMainAdodb->Connect($hostname_connMain, $username_connMain, $password_connMain, $database_connMain);
 //$connAdodb->LogSQL();
 ?>

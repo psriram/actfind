@@ -10,7 +10,9 @@ class App_base
         global $connMainAdodb;
         $this->_connMain = $connMainAdodb;
         $this->_connMain->SetFetchMode(ADODB_FETCH_ASSOC);
-        //$this->_connMain->debug = true;
+        if (!empty($_GET['debug']) && $_GET['debug'] == 1) {
+          $this->_connMain->debug = true;
+        }
     }
 
     protected function qstr($value)

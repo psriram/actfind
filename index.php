@@ -3,18 +3,21 @@ session_start();
 
 include_once('includes/constants.php');
 
-$http = $_SERVER['HTTP_HOST'];
-$file = SITEDIR.'/configs/config.'.$http.'.php';
+
+//$http = $_SERVER['HTTP_HOST'];
+$host = str_replace('www.', '', $_SERVER['HTTP_HOST']);
+$file = SITEDIR.'/configs/config.'.str_replace(':', '_', $host).'.php';
+
 if (file_exists($file)) {
   include_once($file);
 }
 include_once(SITEDIR.'/configs/config.php');
+set_include_path(get_include_path(). PATH_SEPARATOR. SITEDIR.'/libraries'. PATH_SEPARATOR. SITEDIR.'/libraries/library'. PATH_SEPARATOR. SITEDIR.'/libraries/pear');
 
-include_once(SITEDIR.'/Connections/connMain.php');
-include_once('includes/functions.php');
+require_once('FirePHPCore/FirePHP.class.php');
+$firephp = FirePHP::getInstance(true);
+$firephp->setEnabled(true);
 
-
-set_include_path(get_include_path(). PATH_SEPARATOR. BASE_DIR.'/library');
 
 //my autoloader
 function myautoload($class_name) {
@@ -24,6 +27,40 @@ function myautoload($class_name) {
    }
 }
 spl_autoload_register('myautoload', true);
+
+
+function log_error($message, $key='')
+{
+  global $firephp;
+  $firephp->error($message, $key);
+  $firephp->trace('Trace');
+}
+
+function log_log($message, $key='')
+{
+  global $firephp;
+  $firephp->log($message, $key);
+}
+
+function log_info($message, $key='')
+{
+  global $firephp;
+  $firephp->info($message, $key);
+}
+
+
+function log_warn($message, $key='')
+{
+  global $firephp;
+  $firephp->warn($message, $key);
+}
+
+
+include_once(SITEDIR.'/Connections/connMain.php');
+include_once('includes/functions.php');
+
+$modelGeneral = new Models_General();
+
 
 //zend autoloadar
 /*require_once('Zend/Loader/Autoloader.php');
