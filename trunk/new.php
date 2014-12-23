@@ -189,7 +189,7 @@ if (isset($_POST['MM_Insert']) && $_POST['MM_Insert'] == 'form1') {
       } else {
           $error = 'Successfully added your record in database. It will be visible in few minutes.';
       }
-      header("Location: ".$currentURL."/auto/new?module_id=".$colname_rsModule."&msg=".urlencode($error).$extendedURL);
+      header("Location: ".HTTPPATH."/new?module_id=".$colname_rsModule."&msg=".urlencode($error).$extendedURL);
       exit;
   } catch (Exception $e) {
       $error = $e->getMessage();
@@ -267,14 +267,14 @@ if (isset($_POST['MM_Update']) && $_POST['MM_Update'] == 'form1') {
       }
       //multiselect
       $error = 'Successfully updated your record in database. Updated record will be displayed in few minutes.';
-      header("Location: ".$currentURL."/auto/edit?id=".$_GET['id']."&module_id=".$colname_rsModule."&msg=".urlencode($error));
+      header("Location: ".HTTPPATH."/edit?id=".$_GET['id']."&module_id=".$colname_rsModule."&msg=".urlencode($error));
       exit;
   } catch (Exception $e) {
       $error = $e->getMessage();
   }
 }
 
-include(SITEDIR.'/libraries/addresses/addressGrabberHead2.php');
+include(SITEDIR.'/includes/addressGrabberHead2.php');
 ?>
 <!-- Date time picker -->
 <link rel="stylesheet" type="text/css" href="<?php echo HTTPPATH; ?>/styles/jquery.datetimepicker.css"/>
@@ -295,7 +295,7 @@ include(SITEDIR.'/libraries/addresses/addressGrabberHead2.php');
     <p><a href="<?php echo HTTPPATH; ?>/my?<?php echo $get_rsView; ?>">Back To Browse</a></p>
   </div>
 </div>
-<form name="form1" id="form1" method="post" action="<?php if ($id) echo $currentURL."/auto/edit?id=".$id."&module_id=".$colname_rsModule.$extendedURL; else echo $currentURL."/auto/new?module_id=".$colname_rsModule.$extendedURL; ?>">
+<form name="form1" id="form1" method="post" action="<?php if ($id) echo HTTPPATH."/edit?id=".$id.$extendedURL; else echo HTTPPATH."/new?".$extendedURL; ?>">
 
 <div class="row">
   <div class="col-lg-12">
@@ -313,7 +313,7 @@ include(SITEDIR.'/libraries/addresses/addressGrabberHead2.php');
                 <div id="collapseLocation" class="panel-collapse collapse in">
                     <div class="panel-body">
                         <?php
-                            include(SITEDIR.'/libraries/addresses/addressGrabberBody2.php');
+                            include(SITEDIR.'/includes/addressGrabberBody2.php');
                         ?>
                     </div>
                 </div>
