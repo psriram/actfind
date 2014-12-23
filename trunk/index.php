@@ -26,11 +26,11 @@ function myautoload($class_name) {
 spl_autoload_register('myautoload', true);
 
 //zend autoloadar
-require_once('Zend/Loader/Autoloader.php');
+/*require_once('Zend/Loader/Autoloader.php');
 if (class_exists('Zend_Loader_Autoloader', false))
 {
   Zend_Loader_Autoloader::getInstance();
-}
+}*/
 
 
 
