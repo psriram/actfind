@@ -139,14 +139,20 @@ $('#simple-radius li').on('click', function(){
     $('#lnkradius').text($(this).text());
     $('#hdnRadius').val($(this).text().trim());
 });
+$('#btnFindLeague').on('click', function(){
+    window.location.href="/activityfinder#lnkradius";
+});
+$('#btnRegisterLeague').on('click', function(){
+    window.location.href="/activityfinder/prototype/clubs/join";
+});
 $('#btnSignUp').on('click', function(){
-    window.location.href="/prototype/users/register?action=signup";
+    window.location.href="/activityfinder/prototype/users/register?action=signup";
 });
 $('#btnSignIn').on('click', function(){
-    window.location.href="/prototype/users/register?action=signin";
+    window.location.href="/activityfinder/prototype/users/register?action=signin";
 });
 $('#btnLogOut').on('click', function(){
-    window.location.href="/prototype/users/logout";
+    window.location.href="/activityfinder/prototype/users/logout";
 });
 $('#go').on('click', function(){
     //var city = $("#city_id").val();
@@ -156,10 +162,10 @@ $('#go').on('click', function(){
     var lat = $("#hdnLat").val();
     var lng = $("#hdnLong").val();
    // alert($('#hdnRadius').val());
-    //alert(radius);
-    //alert(category);
-    //alert(lat);
-    //alert(lng);
+   // alert(radius);
+   // alert(category);
+  //  alert(lat);
+  //  alert(lng);
     //document.getElementById("searchForm").action="searchresults.php?lat="+lat+"&lng="+lng+"&radius="+radius+"&category="+category
     document.getElementById("searchForm").submit();
 

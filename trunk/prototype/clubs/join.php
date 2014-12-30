@@ -5,11 +5,12 @@
   $model = new Models_ActivityFinder();
   $categoryDisplay = $model->category();
 
-  $layoutFile = 'layouts/templateSelf';
+  /*$layoutFile = 'layouts/templateSelf';
 $Models_General = new Models_General();
 $model = new Models_ActivityFinder();
-$categoryDisplay = $model->category();
-
+$categoryDisplay = $model->category();*/
+print_r($_SESSION);
+exit;
 if (!empty($_POST)) {
   $arr = array();
   $arr['activity_id'] = guid();
@@ -19,6 +20,9 @@ if (!empty($_POST)) {
   $arr['ac_password'] = !empty($_POST['InputPassword']) ? $_POST['InputPassword'] : '';
   $arr['ac_lat'] = !empty($_POST['lat']) ? $_POST['lat'] : '';
   $arr['ac_lon'] = !empty($_POST['lng']) ? $_POST['lng'] : '';
+  print_r($arr);
+  exit;
+  /*
   if(!empty($_POST['InputLocation'])){
     $arr['ac_address'] = $_POST['InputLocation'];
   }
@@ -43,11 +47,12 @@ if (!empty($_POST)) {
       $Models_General->addDetails('activities_cats', $cats, $_SESSION['user']['user_id']);
     }
   }
-  
-  $msg = 'Club added successfully in our database.';
+
+  $msg = 'Club added successfully in our database.';*/
+
 }
 ?>
-?>
+
 
  <style>
   #map-canvas {
@@ -101,6 +106,7 @@ if (!empty($_POST)) {
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label for="InputEmail">Club Email</label>
                     <div class="input-group">
@@ -119,71 +125,13 @@ if (!empty($_POST)) {
                     <label for="InputLocation">Location</label>
                     <div id="locationField" class="input-group">
 
-                        
+
                         <input id="autocomplete" name="InputLocation" placeholder="Location"
                                                      onFocus="geolocate()" type="text" class="form-control" required></input>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
 
                     </div>
-                    <div class="input-group">
-                         <button type="button" id="lnkChangeLoc" class="btn btn-link">Can't find Location</button>
-                    </div>
-                </div>
 
-                <div id="loc1" class="form-group" style="display: none;">
-                    <label for="InputAddress">Address</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="InputAddress" id="InputAddress" placeholder="Address" required>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                    </div>
-                    <label for="InputCity">City</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="InputCity" id="InputCity" placeholder="City" required>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                    </div>
-                    <label for="InputState">State</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="InputState" id="InputState" placeholder="Address" required>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                    </div>
-                    <label for="InputZip">Zipcode</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="InputZip" id="InputZip" placeholder="Zipcode" required>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="InputCategory">Select Category</label>
-                    <div class="input-group">
-                        <select name="InputCategory" size="5" multiple="MULTIPLE" id="InputCategory" style="width:100%;">
-                          <?php if (!empty($categoryDisplay)) {
-                            foreach ($categoryDisplay as $v) {
-                              ?>
-                              <option value="<?php echo $v['category_id']; ?>"><?php echo $v['category']; ?></option>
-                              <?php
-                            }
-                          }
-                          ?>
-                        </select>
-
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="InputMessage">Enter Club Details</label>
-                    <div class="input-group">
-                        <textarea name="InputMessage" id="InputMessage" class="form-control" rows="5" required></textarea>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="InputMessage">Enter Logo</label>
-
-                    <div class="input-group">
-                        <textarea name="InputMessage" id="InputMessage" class="form-control" rows="5" required></textarea>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                    </div>
                 </div>
 
                 <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">
