@@ -1,20 +1,5 @@
 
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Place searches</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-
-    <base href="<?php echo HTTPPATH; ?>/layouts/home/" />
-        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
-
 
 
     <script>
@@ -31,10 +16,10 @@ function initialize() {
   lng = parseFloat(lng);
   rad = parseInt(rad) * 1609
   //cat = "karate";
-  alert(lat);
-  alert(lng);
-  alert(rad);
-  alert(cat);
+  //alert(lat);
+  //alert(lng);
+ // alert(rad);
+ // alert(cat);
   var pyrmont = new google.maps.LatLng(lat, lng);
 
   map = new google.maps.Map(document.getElementById('map'), {
@@ -137,8 +122,6 @@ function callbackdetail(place,status){
 google.maps.event.addDomListener(window, 'load', initialize);
 
 </script>
-  </head>
-  <body>
     <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 " id="grdListings">
@@ -195,6 +178,3 @@ google.maps.event.addDomListener(window, 'load', initialize);
         color: #197BB5;
     }
 </style>
-  </body>
-</html>
-

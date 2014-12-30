@@ -2,8 +2,7 @@
 
 if($_REQUEST['type']=='self'){
   try {
-      //pr($_REQUEST);
-      //exit;
+
       $email = $_REQUEST['email'];
       //check the email
       $rec = check_email($email);

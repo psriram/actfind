@@ -15,14 +15,15 @@
       // https://google-api-javascript-client.googlecode.com/hg/samples/authSample.html
       // In your Developer Console project, add a JavaScript origin that corresponds to the domain
       // where you will be running the script.
-      var clientId = '787762404006-0p0grihel4hgv14bu5lbhcjpgiio5t5a.apps.googleusercontent.com';
-
+      //var clientId = '787762404006-0p0grihel4hgv14bu5lbhcjpgiio5t5a.apps.googleusercontent.com';
+      var clientId = '437724595536-5ra6e0p4lfqre9m9q70cu0knpfbkcr1m.apps.googleusercontent.com';
       // Enter the API key from the Google Develoepr Console - to handle any unauthenticated
       // requests in the code.
       // The provided key works for this sample only when run from
       // https://google-api-javascript-client.googlecode.com/hg/samples/authSample.html
       // To use in your own application, replace this API key with your own.
-      var apiKey = 'AIzaSyCAPTSi4Q8q0bhcX2Wc6UtAWVjh2OKNJMY';
+      //var apiKey = 'AIzaSyCAPTSi4Q8q0bhcX2Wc6UtAWVjh2OKNJMY';
+      var apiKey = 'AIzaSyBvXqWIcqyTVRgjXsVjDbdORcNaXHVjtOw';
 
       // To enter one or more authentication scopes, refer to the documentation for the API.
       var scopes = 'https://www.googleapis.com/auth/plus.me';
@@ -68,8 +69,9 @@
             image.src = resp.image.url;
             heading.appendChild(image);
             heading.appendChild(document.createTextNode(resp.displayName));
+
             //$.post( "/prototype/users/saveuser", resp);
-            $.post( "/prototype/users/saveuser",resp)
+            $.post( "/activityfinder/prototype/users/saveuser",resp)
               .done(function( data ) {
                 //alert( "Data Loaded: " + data );
                 //location.href="/";
@@ -84,10 +86,9 @@
             //alert($(this).text());
             var email_val = $("#txtEmail").val().trim();
             var name_val = $("#txtName").val().trim();
-            //alert(name_val);
+
             //return false;
             var passwd = $("#txtPassword").val().trim();
-            // alert(passwd);
 
             if(email_val=="" || passwd === ""){
               $("#divError").html( "<span class='red'>Please enter email and password</span>" );
@@ -101,10 +102,12 @@
             //alert(email_val);
             //alert(passwd);
            var resp = { email: email_val, password: passwd, name: name_val,action:"signup",type: "self" };
+
            //console.log(resp);
-           $.post( "/prototype/users/saveuser",resp)
+           $.post( "/activityfinder/prototype/users/saveuser",resp)
               .done(function( data ) {
                 var obj = JSON.parse(data);
+                alert(obj.msg);
                 console.log(obj.success);
                 console.log(obj.msg);
                 if(obj.success=="0"){
@@ -138,7 +141,7 @@
             //alert(passwd);
            var resp = { email: email_val, password: passwd, action:"login",type: "self" };
            //console.log(resp);
-           $.post( "/prototype/users/saveuser",resp)
+           $.post( "/activityfinder/prototype/users/saveuser",resp)
               .done(function( data ) {
                 var obj = JSON.parse(data);
                 //console.log(data);

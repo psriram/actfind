@@ -30,6 +30,10 @@
         <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
          <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -226,7 +230,7 @@
         </section>--><!--slider main parallax-->
 
          <div class="divide40"></div>
-        <form id="searchForm" action="/activity/searchresults" method="post">
+        <form id="searchForm" action="/activityfinder/layouts/home/searchresults" method="post">
         <div class="container">
         <div class="row">
             <div class="col-md-12">
