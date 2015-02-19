@@ -100,7 +100,7 @@ $( document ).ready(function() {
   </p>
   <p><input type="button" value="Find Businesses" style="width:100%" onclick="findBusiness()"></p>
   <div id="results">
-  
+
   </div>
 </fieldset>
 
@@ -186,7 +186,7 @@ $( document ).ready(function() {
     <input type="text" name="whatsapp_phone" id="whatsapp_phone" placeholder="Whats App Phone" />
   </p>
   </fieldset>
-  
+
   <fieldset>
     <legend><strong>Fields</strong></legend>
     <div>
@@ -213,11 +213,11 @@ $( document ).ready(function() {
           </p>
     </div>
   </fieldset>
-  
+
   <fieldset id="reviewsDisplay" style="display:none;">
     <legend><strong>Reviews</strong></legend>
     <div id="reviewsShow">
-      
+
     </div>
   </fieldset>
     <p>

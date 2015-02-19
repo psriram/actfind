@@ -107,7 +107,7 @@
            $.post( "/activityfinder/prototype/users/saveuser",resp)
               .done(function( data ) {
                 var obj = JSON.parse(data);
-                alert(obj.msg);
+
                 console.log(obj.success);
                 console.log(obj.msg);
                 if(obj.success=="0"){
@@ -115,7 +115,7 @@
                   return false;
                 }
                 else{
-                   location.href="/";
+                   location.href="/activityfinder";
                 }
                 //location.href="/";
               },"json");
@@ -152,11 +152,23 @@
                   return false;
                 }
                 else{
-                  location.href="/";
+                  var callback_val = $("#hdnCallBack").val().trim();
+                  if(callback_val == "register"){
+                    location.href="/activityfinder/prototype/clubs/join";
+                  }
+                  else{
+                    location.href="/activityfinder";
+                  }
+
                 }
               },"json");
             return false;
 
+          });
+
+          $('#btnLogInLink').on('click', function(){
+             var callback_val = $("#hdnCallBack").val().trim();
+             window.location.href="/activityfinder/prototype/users/register?action=signin&callback="+callback_val;
           });
       });
 </script>
@@ -182,6 +194,9 @@
         </div>
     </div>
     <hr />
+    <?php if ($_REQUEST['action']=="signup") { ?>
+            Already have an account<button type="button" id="btnLogInLink" class="btn btn-link">Log In</button>
+    <?php } ?>
     <div id="divError" class="row text-center">
 
     </div>
@@ -203,5 +218,5 @@
             <button id="btnSignIn2" class="btn btn-primary btn-lg btn-block">Sign Up</button>
         <?php } ?>
     </div>
-
+    <input type="hidden" name="hdnCallBack" id="hdnCallBack" value="<?php echo isset($_GET['callback']) ? $_GET['callback'] : '' ?>"\>
 </form>
