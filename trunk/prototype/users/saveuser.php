@@ -50,6 +50,7 @@ if($_REQUEST['type']=='self'){
 
             $model = new Models_General();
             $params['where'] = " and email=  ".$model->qstr($email) . " and password= ". $model->qstr($encpasswd);
+
             $rec1 = $model->getDetails('auth',$params);
             $rec1 = $rec1[0];
 
