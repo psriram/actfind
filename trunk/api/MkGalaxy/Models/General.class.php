@@ -9,6 +9,7 @@ class Models_General extends App_base
           $this->checkUser($uid);
       }
       $insertSQL = $this->_connMain->AutoExecute($tableName, $data, 'INSERT');
+
       $id = $this->_connMain->Insert_ID();
       return $id;
     }
@@ -28,8 +29,9 @@ class Models_General extends App_base
       return true;
     }
 
-  public function getDetails($tableName, $cache=1, $params=array(), $cacheTime=300)
+  public function getDetails($tableName, $params=array(), $cache=0, $cacheTime=300)
   {
+
     if (empty($cacheTime)) {
         $cacheTime = !empty($params['cacheTime']) ? $params['cacheTime'] : '300';
     }
@@ -48,6 +50,7 @@ class Models_General extends App_base
       $fields = !empty($params['fields']) ? $params['fields'] : '*';
       $limit = !empty($params['limit']) ? $params['limit'] : '';
       $sql = "SELECT $fields FROM $tableName WHERE 1 $where $group $order $limit";
+
       $this->sql = $sql;
       if ($cache) {
         $result = $this->_connMain->CacheExecute($cacheTime, $sql);
@@ -68,7 +71,7 @@ class Models_General extends App_base
       $this->_connMain->CacheFlush($sql, $inputArr);
       return true;
   }
-  
+
   public function fetchRow($query, $params, $cacheTime=300)
   {
     $data = array();
@@ -80,7 +83,7 @@ class Models_General extends App_base
     }
     return $row;
   }
-  
+
   public function fetchAll($query, $params, $cacheTime=300)
   {
     $data = array();
@@ -89,7 +92,7 @@ class Models_General extends App_base
     $result = $this->getDetails('', ($cacheTime > 0), $data, $cacheTime);
     return $result;
   }
-  
+
   public function qstr($v)
   {
     return $this->_connMain->qstr($v);
