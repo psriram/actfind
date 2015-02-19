@@ -143,7 +143,14 @@ $('#btnFindLeague').on('click', function(){
     window.location.href="/activityfinder#lnkradius";
 });
 $('#btnRegisterLeague').on('click', function(){
-    window.location.href="/activityfinder/prototype/clubs/join";
+    var userId = $("#hdnUserId").val();
+
+    if(userId==""){
+        window.location.href="/activityfinder/prototype/users/register?action=signup&callback=register";
+    }
+    else{
+        window.location.href="/activityfinder/prototype/clubs/join?action=step1";
+    }
 });
 $('#btnSignUp').on('click', function(){
     window.location.href="/activityfinder/prototype/users/register?action=signup";

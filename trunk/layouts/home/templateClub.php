@@ -95,17 +95,22 @@
           <div class="top-bar-wrap hidden-xs">
               <div class="container">
                   <div class="top-bar">
-                      <div class="pull-left pull-left_color">
-                          <button type="btnFindLeague" class="btn btn-theme-bg">Find a League</button>
-                          <button type="btnRegisterLeague" class="btn btn-theme-bg">Register a League
-                          </button>
-                      </div>
-                      <div class="pull-right pull-left_color">
-                          <button type="btnSignUp" id="btnSignUp" class="btn btn-theme-bg">Sign Up</button>
-                      </div>
-                      <div class="pull-right pull-left_color">
-                        <button id="btnSignIn" class="btn btn-theme-bg">Log In</button>
-                      </div>
+                      <?php if (isset($_SESSION['user']['id'])) { ?>
+                        <div class="pull-right">
+
+                            <img src="<?php echo $_SESSION['user']['picture']; ?>" class="img-circle" alt="<?php echo $_SESSION['user']['name']; ?>"/>
+                            <span class="btn btn-theme-bg"><?php echo $_SESSION['user']['name']; ?></span>
+
+                            <button id="btnLogOut" class="btn btn-theme-bg">Log Out</button>
+                        </div>
+                      <?php } else { ?>
+                        <div class="pull-right pull-left_color">
+                            <button id="btnSignUp" class="btn btn-theme-bg">Sign Up</button>
+                        </div>
+                        <div class="pull-right pull-left_color">
+                            <button id="btnSignIn" class="btn btn-theme-bg">Log In</button>
+                        </div>
+                      <?php } ?>
                       <!--
                       <div class="pull-right">
                           <ul class="list-inline social-1">

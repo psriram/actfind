@@ -13,8 +13,7 @@
         </style>
         <title>Leagueup-Connecting people to leagues</title>
         <base href="<?php echo HTTPPATH; ?>/layouts/home/" />
-        <!-- Bootstrap -->
-        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
         <!-- custom css -->
         <link href="css/style.css" rel="stylesheet" type="text/css" media="screen">
         <!-- font awesome for icons -->
@@ -33,7 +32,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -299,7 +298,7 @@
                                      <input type="hidden" id="hdnLat" name="hdnLat"/>
                                <input type="hidden" id="hdnLong" name="hdnLong"/>
                             </div>
-
+                              <input type="hidden" id="hdnUserId" name="hdnUserId" value="<?php echo $_SESSION['user']['id']; ?>"/>
 
 
                                 <!--<div id="the-basics">
@@ -326,131 +325,8 @@
         </div>
       </div>
       </div>
-<footer id="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 margin30">
-                        <div class="footer-col">
-                            <h3 class="heading">About us</h3>
-                            <p>
-                                Duis nisl est, porta eu augue et, tempor congue mauris. Praesent a ligula in urna consectetur rhoncus.
-                            </p>
-                            <ul class="address-info list-unstyled">
-                                <li><i class="fa fa-home"></i> Vaishali nagar, Jaipur, 302012</li>
-                                <li><i class="fa fa-phone"></i> +91 123456789</li>
-                                <li><i class="fa fa-envelope"></i> <a href="#">support@designmylife.com</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3 margin30">
-                        <div class="footer-col">
-                            <h3 class="heading">Recent Post</h3>
-                            <ul class="list-unstyled popular-post">
-                                <li>
-                                    <div class="popular-img">
-                                        <a href="#"> <img src="img/work-6.png" class="img-responsive" alt=""></a>
-                                    </div>
-                                    <div class="popular-desc">
-                                        <h5> <a href="#">blog post image</a></h5>
-                                        <h6>31st july 2014</h6>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="popular-img">
-                                        <a href="#"> <img src="img/work-2.png" class="img-responsive" alt=""></a>
-                                    </div>
-                                    <div class="popular-desc">
-                                        <h5> <a href="#">blog post image</a></h5>
-                                        <h6>31st july 2014</h6>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="popular-img">
-                                        <a href="#"> <img src="img/work-5.png" class="img-responsive" alt=""></a>
-                                    </div>
-                                    <div class="popular-desc">
-                                        <h5> <a href="#">blog post image</a></h5>
-                                        <h6>31st july 2014</h6>
-                                    </div>
-                                </li>
-                            </ul><!--latest post-->
-                        </div>
-                    </div><!--footer col-->
-                    <div class="col-md-3 margin30">
-                        <div class="footer-col">
-                            <h3 class="heading">Elsewhere</h3>
-                            <ul class="list-inline social-1">
-                                <li><a href="#"><i class="fa fa-facebook" data-toggle="tooltip" title="" data-original-title="Facebook" data-placement="top"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter" data-toggle="tooltip" title="" data-original-title="Twitter" data-placement="top"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus" data-toggle="tooltip" title="" data-original-title="Google pluse" data-placement="top"></i></a></li>
-                                <li><a href="#"><i class="fa fa-pinterest" data-toggle="tooltip" title="" data-original-title="Pinterest" data-placement="top"></i></a></li>
-                                <li><a href="#"><i class="fa fa-dribbble" data-toggle="tooltip" title="" data-original-title="Dribbble" data-placement="top"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="divide30"></div>
-                        <div class="footer-col">
-                            <h3 class="heading">Newsletter</h3>
-                            <p>
-                                Duis nisl est, porta eu augue et, tempor congue mauris.
-                            </p>
-                            <form class="newsletter-form">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="input-group">
-                                            <label class="sr-only" for="subscribe-email">Email address</label>
-                                            <input type="email" class="form-control" id="subscribe-email" placeholder="Enter your email">
-                                            <span class="input-group-btn">
-                                                <button type="submit" class="btn btn-theme-bg btn-lg">OK</button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div><!--footer col-->
-                    <div class="col-md-3 margin30">
-                        <div class="footer-col">
-                            <h3 class="heading">Recent Work</h3>
-                            <div class=" footer-work">
-                                <a href="#">
-                                    <img src="img/work-1.png" class="img-responsive" alt="">
-                                </a>
-                                <a href="#">
-                                    <img src="img/work-2.png" class="img-responsive" alt="">
-                                </a>
-                                <a href="#">
-                                    <img src="img/work-10.jpg" class="img-responsive" alt="">
-                                </a>
-                                <a href="#">
-                                    <img src="img/work-4.jpg" class="img-responsive" alt="">
-                                </a>
-                                <a href="#">
-                                    <img src="img/work-5.png" class="img-responsive" alt="">
-                                </a>
-                                <a href="#">
-                                    <img src="img/work-6.png" class="img-responsive" alt="">
-                                </a>
-                                <a href="#">
-                                    <img src="img/work-7.png" class="img-responsive" alt="">
-                                </a>
-                                <a href="#">
-                                    <img src="img/work-8.png" class="img-responsive" alt="">
-                                </a>
-                                <a href="#">
-                                    <img src="img/work-9.png" class="img-responsive" alt="">
-                                </a>
-                            </div>
-                        </div><!--footer col-->
-                    </div>
-                </div><!--row-->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="footer-btm">
-                            <span>&copy; Copyright 2014. Theme by Design_mylife</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <footer id="footer">
+
         </footer><!--footer end-->
         <!--scripts and plugins -->
         <!--must need plugin jquery-->
