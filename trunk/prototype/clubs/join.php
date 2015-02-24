@@ -9,18 +9,37 @@
 
 <script type="text/javascript">
  $( document ).ready(function() {
-  $('#btnSaveLeague').on('click', function(){
-          document.getElementById("formJoin").submit();
-  });
+  var class_counter = 2;
+    $('#btnSaveLeague').on('click', function(){
+            document.getElementById("formJoin").submit();
+    });
+    $('#btnLocationClass').on('click', function(){
+
+        /*var id_label = "InputLocationClass" + class_counter;
+        var newlabel = $(document.createElement('Label'))
+         .attr("for", id_label);
+        newlabel.innerHTML = "Class" + class_counter;
+        newlabel.appendTo("#classBoxesGroup");*/
+
+        var newTextBoxDiv = $(document.createElement('div'))
+         .attr("class", 'input-group');
+
+        newTextBoxDiv.after().html('<label for="InputClass' + class_counter + '"> Class ' + class_counter + '</label> <input type="text" name="InputClass' + class_counter +
+              '" id="InputClass' + class_counter + '" placeholder="Enter Class Name" class="form-control" value="" >');
+
+        newTextBoxDiv.appendTo("#classBoxesGroup");
+
+        class_counter++;
+    });
  });
 </script>
  <style>
-  #map-canvas {
+  /*#map-canvas {
         height: 400px;
         width: 100%;
         margin: 0px;
         padding: 0px
-      }
+      }*/
     .red {
       color: red;
     }
@@ -67,7 +86,8 @@
     <div class="row">
         <form role="form" method="post" name="formJoin" id="formJoin" action="/activityfinder/prototype/clubs/saveclub">
             <div class="col-lg-6">
-                <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong></div>
+                <div class="well well-sm"><strong><span><span>1 </span><span> Club Details </span></div>
+
                 <div class="form-group">
                     <label for="InputName">Club Name</label>
                     <div class="input-group">
@@ -113,9 +133,31 @@
                   </div>
                 </div>
 
+                <div class="well well-sm"><strong><span><span>2 </span><span> Create Team </span></div>
+
+                <div class="form-group">
+                    <label for="InputTeamLocation">Team Location</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="InputTeamLocation" id="InputTeamLocation" placeholder="Enter Team Location" value="">
+                   </div>
+                </div>
+
+                <div class="form-group" id='classBoxesGroup'>
+                   <span><button type="button" id="btnLocationClass" class="btn btn-link">Add Class</button></span>
+
+                    <div class="input-group" >
+                         <label for="InputLocationClass1">Class 1</label>
+                        <input type="text" class="form-control" name="InputClass1" id="InputClass1" placeholder="Enter Class Name" value="">
+                    </div>
+                </div>
+
+
 
             </div>
-            <div id="map-canvas"></div>
+           <!-- <div id="map-canvas"></div>-->
+
+            <!-- create team code-->
+
 
             <input type="hidden" name="lat" id="lat" value="">
             <input type="hidden" name="lng" id="lng" value="">

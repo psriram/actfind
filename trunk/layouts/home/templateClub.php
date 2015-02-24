@@ -23,75 +23,13 @@
         <!--owl carousel css-->
         <link href="css/owl.carousel.css" rel="stylesheet" type="text/css" media="screen">
         <link href="css/owl.theme.css" rel="stylesheet" type="text/css" media="screen">
-    <style>
-      html, body, #map-canvas {
-        height: 100%;
-        margin: 0px;
-        padding: 0px
-      }
-     .form-inline .form-group { margin-right:10px; }
-     .well-primary {
-      color: rgb(255, 255, 255);
-      background-color: rgb(66, 139, 202);
-      border-color: rgb(53, 126, 189);
-     }
-     .glyphicon { margin-right:5px; }
-    </style>
-    <script language="javascript" src="<?php echo HTTPPATH; ?>/scripts/business.js"></script>
-    <script language="javascript">
-      $( document ).ready(function() {
-          init();
-      });
-    </script>
-    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
-    <script>
 
 
-    </script>
 
-    <style>
-      #locationField, #controls {
-        position: relative;
-        width: 99%;
-      }
-      #autocomplete {
-        left: 0px;
-        /*position: absolute;
-        top: 0px;
-        width: 99%;*/
-      }
-      .label {
-        text-align: right;
-        font-weight: bold;
-        width: 100px;
-        color: #303030;
-      }
-      #address {
-        border: 1px solid #000090;
-        background-color: #f0f0ff;
-        width: 480px;
-        padding-right: 2px;
-      }
-      #address td {
-        font-size: 10pt;
-      }
-      .field {
-        width: 99%;
-      }
-      .slimField {
-        width: 80px;
-      }
-      .wideField {
-        width: 200px;
-      }
-      #locationField {
-        height: 20px;
-        margin-bottom: 2px;
-      }
-    </style>
+
+
   </head>
-    <body onload="initialize()">
+    <body >
           <div class="top-bar-wrap hidden-xs">
               <div class="container">
                   <div class="top-bar">
@@ -164,35 +102,12 @@
 
       </div>
 
-   <div class="container">
+      <div class="container">
             <?php echo $contentForTemplate; ?>
 
         </div>
 
-        <!--bootstrap js plugin-->
-        <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-        <!--easing plugin for smooth scroll-->
-        <script src="js/jquery.easing.1.3.min.js" type="text/javascript"></script>
-        <!--easing plugin for nice scroll scroll-->
-        <script src="js/jquery.nicescroll.min.js" type="text/javascript"></script>
-        <!--sticky header-->
-        <script type="text/javascript" src="js/jquery.sticky.js"></script>
-        <!--flex slider plugin-->
-        <script src="js/jquery.flexslider-min.js" type="text/javascript"></script>
-        <!--parallax background plugin-->
-        <script src="js/jquery.stellar.min.js" type="text/javascript"></script>
-        <!--very easy to use portfolio filter plugin -->
-        <script src="js/jquery.mixitup.min.js" type="text/javascript"></script>
-        <!--digit countdown plugin-->
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
-        <!--digit countdown plugin-->
-        <script src="js/jquery.counterup.min.js" type="text/javascript"></script>
-        <!--on scroll animation-->
-        <script src="js/wow.min.js" type="text/javascript"></script>
-        <!--owl carousel slider-->
-        <script src="js/owl.carousel.min.js" type="text/javascript"></script>
-        <!--customizable plugin edit according to your needs-->
-        <script src="js/custom.js" type="text/javascript"></script>
+
 
     </body>
 </html>
