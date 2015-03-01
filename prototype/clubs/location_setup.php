@@ -2,27 +2,55 @@
 
 
   $layoutFile = 'layouts/home/templateClub';
-  $pageTitle = 'Location Setup';
+  $pageTitle = 'Join a club';
+  /*$model = new Models_General();
+  $params['where'] = " and Club_Location_Id=".$model->qstr($_SESSION['club_location_id']);
+  $club_sessions = $model->getDetails('Class_Schedule',$params);*/
 
-  //echo("club id:".  $_SESSION['club_id']);
 ?>
 
 <script type="text/javascript">
  $( document ).ready(function() {
-  $('#btnLocationClass').on('click', function(){
-          //$("#divClass").css("display", "none");
-          $('#divClass').show();
-  });
+    //var class_counter = 2;
+
+    $('#btnAddLocationClass').on('click', function(){
+       document.getElementById("formSchedule").submit();
+
+       /* var newRowDiv = $(document.createElement('div'))
+         .attr("class", 'row');
+
+        var newTextBoxDiv1 = $(document.createElement('div'))
+         .attr("class", 'col-sm-4');
+        var newTextBoxDiv2 = $(document.createElement('div'))
+         .attr("class", 'col-sm-4');
+        var newTextBoxDiv3 = $(document.createElement('div'))
+         .attr("class", 'col-sm-4');
+        var newTextBoxDiv4 = $(document.createElement('div'))
+         .attr("class", 'col-sm-4');
+        newTextBoxDiv1.after().html('<input type="text" name="InputClass' + class_counter +
+              '" id="InputClass' + class_counter + '" placeholder="Enter Class Name" class="form-control" value="">');
+        newTextBoxDiv2.after().html('<input type="text" name="InputStartAge' + class_counter +
+              '" id="InputStartAge' + class_counter + '" placeholder="Enter Start Age" class="form-control" value="">');
+        newTextBoxDiv3.after().html('<input type="text" name="InputEndAge' + class_counter +
+              '" id="InputEndAge' + class_counter + '" placeholder="Enter End Age" class="form-control" value="">');
+        newTextBoxDiv1.appendTo(newRowDiv);
+        newTextBoxDiv2.appendTo(newRowDiv);
+        newTextBoxDiv3.appendTo(newRowDiv);
+
+        newRowDiv.appendTo("#classBoxesGroup");
+
+        var newRowDiv1 = $(document.createElement('div'))
+         .attr("class", 'row');
+        newRowDiv1.after().html('<p></p>');
+        newRowDiv1.appendTo("#classBoxesGroup");
+
+        class_counter++;*/
+    });
 
  });
 </script>
  <style>
-  #map-canvas {
-        height: 400px;
-        width: 100%;
-        margin: 0px;
-        padding: 0px
-      }
+
     .red {
       color: red;
     }
@@ -30,25 +58,16 @@
 
 
 <div class="container">
- 	<div class="navbar navbar-default">
-		 <div class="navbar-header">
-	        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	        </button>
-	        <a class="navbar-brand" href="#"></a>
-	    </div>
-	    <div id="navbar" class="collapse navbar-collapse">
-	        <ul class="nav navbar-nav navbar-right">
-              <li class="active"><input type="button" name="btnSaveLocation" id="btnSaveLocation" value="Location Setup" class="btn btn-info pull-right"></li>
-	        </ul>
-      </div>
-   </div>
-  <div id="divError" class="row text-center">
+  <?php
+  $file = SITEDIR.'/includes/club_join_header.php';
 
-  </div>
-	<div class="row text-center">
+  if (file_exists($file)) {
+    include_once($file);
+  }
+  ?>
+
+
+  <div class="row text-center">
      <p></p>
     </div>
      <div class="row text-center">
@@ -56,48 +75,182 @@
     </div>
      <hr />
     <div class="row">
-        <form role="form" method="post" name="formLocation" id="formLocation" action="/activityfinder/prototype/clubs/saveclub?action=location">
-            <div class="col-lg-6">
-                <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong></div>
-                <div class="form-group">
-                    <label for="InputName">Location</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="InputName" id="InputLocation" placeholder="Enter Location" value="<?php echo isset($_POST['InputLocation']) ? $_POST['InputLocation'] : '' ?>" required>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                    </div>
-                </div>
-                 <span><<button type="button" id="btnLocationClass" class="btn btn-link">Add Class</button></span>
-                 <div id = "divClass" style="display: none;" class="form-group">
-                    <label for="InputName">Location Class/Team</label>
-                    <div class="input-group">
-                        <div class="checkbox">
-                             <label><input type="checkbox" value="">School Year</label>
-                        </div>
-                        <div class="checkbox">
-                          <label><input type="checkbox" value="">Summer</label>
-                        </div>
-                        <div class="checkbox disabled">
-                          <label><input type="checkbox" value="" disabled>Spring</label>
-                        </div>
-                    </div>
-                </div>
-              <!--
-                <span><a id="lnkSetup" style="display: none;" href="#">Add Setup</a></span>
-                 <div id = "divSetup" style="display: none;" class="form-group">
-                    <label for="InputName">Location Setup</label>
-                    <div class="input-group">
-                        <div class="checkbox">
-                             <label><input type="checkbox" value="">School Year</label>
-                        </div>
-                        <div class="checkbox">
-                          <label><input type="checkbox" value="">Summer</label>
-                        </div>
-                        <div class="checkbox disabled">
-                          <label><input type="checkbox" value="" disabled>Spring</label>
-                        </div>
-                    </div>
-                </div>
-            -->
+        <form role="form" method="post" name="formSchedule" id="formSchedule" action="/activityfinder/prototype/clubs/saveschedule">
+        <div class="col-sm-12">
+
+            <div class="well well-sm"><strong><span>Create Team </span></div>
+
+            <div class="form-group">
+                <label for="InputTeamLocation">Team Location</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" name="InputTeamLocation" id="InputTeamLocation" placeholder="Enter Team Location" value="">
+               </div>
+            </div>
+
+
+            <div class="panel panel-default">
+                  <div class="panel-heading">
+                      <h3 class="panel-title">
+                          <span class="fa fa-question-circle"></span> Schedule Setup</h3>
+                  </div>
+                  <div class="panel-body two-col">
+                        <div class="form-group" id='classBoxesGroup'>
+
+
+
+                            <div class="row">
+                              <div class="col-sm-2">Class Name</div>
+                              <div class="col-sm-2">Start Age</div>
+                              <div class="col-sm-2">End Age</div>
+                              <div class="col-sm-2">Start Date</div>
+                              <div class="col-sm-2">End Date</div>
+                              <div class="col-sm-2">#Sessions</div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-sm-2"><input type="text" class="form-control" name="InputClass" id="InputClass" placeholder="Enter Class Name" value=""></div>
+                                <div class="col-sm-2"><input type="text" class="form-control" name="InputStartAge" id="InputStartAge" placeholder="Enter Start Age" value=""></div>
+                                <div class="col-sm-2"><input type="text" class="form-control" name="InputEndAge" id="InputEndAge" placeholder="Enter End Age" value=""></div>
+                                <div class="col-sm-2">
+                                  <div class='input-group date' id='datetimepicker1'>
+                                    <input type='text' class="form-control" name="InputStartDate" id="InputStartDate"/>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                  </div>
+                                </div>
+                                 <script type="text/javascript">
+                                    $(function () {
+                                        $('#datetimepicker1').datetimepicker({
+                                            format: 'MM/DD/YY'
+                                        });
+                                    });
+                                </script>
+
+                                <div class="col-sm-2">
+                                  <div class='input-group date' id='datetimepicker2'>
+                                    <input type='text' class="form-control" name="InputEndDate" id="InputEndDate"/>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                  </div>
+                                </div>
+                                 <script type="text/javascript">
+                                    $(function () {
+                                        $('#datetimepicker2').datetimepicker({
+                                            format: 'MM/DD/YY'
+                                        });
+                                    });
+                                </script>
+
+
+                                <div class="col-sm-2"><input type="text" class="form-control" name="InputSessions" id="InputSessions" placeholder="Enter Sessions" value=""></div>
+
+                            </div>
+                            <div class="row">
+                                <p></p>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-2">Days</div>
+                              <div class="col-sm-2"></div>
+                              <div class="col-sm-2"></div>
+                              <div class="col-sm-2"></div>
+                              <div class="col-sm-2">Start Time</div>
+                              <div class="col-sm-2">End Time</div>
+                            </div>
+                            <div class="row" >
+
+
+
+                                <div class="col-sm-2">
+
+                                  <div class="checkbox">
+                                    <label><input type="checkbox" name="class_day[]" value="Mon">Mon</label>
+                                  </div>
+                                  <div class="checkbox">
+                                    <label><input type="checkbox" name="class_day[]" value="Tues">Tue</label>
+                                  </div>
+                                </div>
+                                <div class="col-sm-2">
+                                  <div class="checkbox">
+                                    <label><input type="checkbox" name="class_day[]" value="Wed">Wed</label>
+                                  </div>
+                                  <div class="checkbox">
+                                    <label><input type="checkbox" name="class_day[]" value="Thur">Thu</label>
+                                  </div>
+                                </div>
+                                <div class="col-sm-2">
+                                  <div class="checkbox">
+                                    <label><input type="checkbox" name="class_day[]" value="Fri">Fri</label>
+                                  </div>
+                                  <div class="checkbox">
+                                    <label><input type="checkbox" name="class_day[]" value="Sat">Sat</label>
+                                  </div>
+                                </div>
+                                 <div class="col-sm-2">
+                                  <div class="checkbox">
+                                    <label><input type="checkbox" name="class_day[]" value="Sun">Sun</label>
+                                  </div>
+                                </div>
+
+                                  <div class="col-sm-2">
+                                  <div class='input-group date' id='datetimepicker3'>
+                                    <input type='text' class="form-control" name="InputStartTime" id="InputStartTime"/>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                  </div>
+                                </div>
+                                 <script type="text/javascript">
+                                    $(function () {
+                                        $('#datetimepicker3').datetimepicker({
+                                            format: 'LT'
+                                        });
+                                    });
+                                </script>
+                                <div class="col-sm-2">
+                                  <div class='input-group date' id='datetimepicker4'>
+                                    <input type='text' class="form-control" name="InputEndTime" id="InputEndTime"/>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                  </div>
+                                </div>
+                                 <script type="text/javascript">
+                                    $(function () {
+                                        $('#datetimepicker4').datetimepicker({
+                                            format: 'LT'
+                                        });
+                                    });
+                                </script>
+
+
+                            </div>
+                            <div class="row" ><p></p></div>
+                      </div>
+
+                  </div>
+                   <div class="panel-footer">
+                      <div class="row">
+                          <div class="col-sm-10">
+
+                          </div>
+                           <div class="col-sm-2">
+                            <button type="button" id="btnAddLocationClass" class="btn btn-primary btn-sm btn-block">
+                                Add Class</button>
+                            </div>
+                      </div>
+                  </div>
+               </div>
+
+            </div>
+
+
+        <hr />
+
+           <!-- <div id="map-canvas"></div>-->
+
+            <!-- create team code-->
+
+
+            <input type="hidden" name="lat" id="lat" value="">
+            <input type="hidden" name="lng" id="lng" value="">
+            <input type="hidden" name="place_id" id="place_id" value="" />
 
         </form>
 
