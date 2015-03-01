@@ -28,6 +28,18 @@
 
         $id=$Models_General->addDetails('Club', $arr, $_SESSION['user']['user_id']);
 
+
+        $category = !empty($_POST['category']) ? $_POST['category'] : array();
+
+        if (!empty($category)) {
+            $cats = array();
+            $cats['club_id'] = $id;
+            foreach ($category as $v) {
+              $cats['category_id'] = $v;
+              $Models_General->addDetails('Club_Category', $cats);
+            }
+        }
+
         if (empty($id)){
           header("Location: /activityfinder/prototype/clubs/join&error=1");
         }
