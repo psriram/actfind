@@ -1,3 +1,9 @@
+<?php
+
+  $model = new Models_ActivityFinder();
+  $categoryDisplay = $model->category();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -11,7 +17,7 @@
             padding: 0px
           }
         </style>
-        <title>Leagueup-Connecting people to leagues</title>
+        <title></title>
         <base href="<?php echo HTTPPATH; ?>/layouts/home/" />
 
         <!-- custom css -->
@@ -25,20 +31,17 @@
         <!--owl carousel css-->
         <link href="css/owl.carousel.css" rel="stylesheet" type="text/css" media="screen">
         <link href="css/owl.theme.css" rel="stylesheet" type="text/css" media="screen">
-        <link href="<?php echo HTTPPATH; ?>/scripts/autocomplete/jquery.autocomplete.css" rel="stylesheet" type="text/css">
-        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+        <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
          <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
+
+        <link href="<?php echo HTTPPATH; ?>/scripts/autocomplete/jquery.autocomplete.css" rel="stylesheet" type="text/css">
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
         <script>
     // This example displays an address form, using the autocomplete feature
     // of the Google Places API to help users fill in the information.
@@ -60,7 +63,8 @@
       // to geographical location types.
       autocomplete = new google.maps.places.Autocomplete(
           /** @type {HTMLInputElement} */(document.getElementById('autocomplete')),
-          { types: ['geocode'] });
+         // { types: ['geocode'] });
+         { types: ['(cities)'] });
       // When the user selects an address from the dropdown,
       // populate the address fields in the form.
       google.maps.event.addListener(autocomplete, 'place_changed', function() {
@@ -248,7 +252,21 @@
                                     value=""
                                     placeholder="All Activities"
                                     />
+                                     <?php if (!empty($categoryDisplay)) { ?>
+                                      <ul class="dropdown-menu" id="simple-criteria" role="menu" aria-labelledby="dropdownMenu1">
 
+
+                                      <?php foreach ($categoryDisplay as $v) { ?>
+                                        <li role="presentation">
+                                          <a role="menuitem" tabindex="-1" href="javascript:;" data-key="<?php echo $v['category']; ?>" data-name="<?php echo $v['category']; ?>"><?php echo $v['category']; ?></a>
+                                        </li>
+
+                                      <?php
+                                      }?>
+                                      </ul>
+                                    <?php
+                                      }?>
+                                  <!--
                                   <ul class="dropdown-menu" id="simple-criteria" role="menu" aria-labelledby="dropdownMenu1">
                                       <li role="presentation">
                                          <a role="menuitem" tabindex="-1" href="javascript:;" data-key="soccer" data-name="soccer">Soccer</a>
@@ -265,7 +283,7 @@
                                       <li role="presentation">
                                          <a role="menuitem" tabindex="-1" href="javascript:;" data-key="baseball" data-name="baseball">Baseball</a>
                                       </li>
-                                   </ul>
+                                   </ul>-->
                                 </div>
                        </div>
                       <div class="col-md-1">
@@ -293,7 +311,7 @@
                      </div>
                         <div class="col-md-3">
                              <div id="locationField">
-                              <input id="autocomplete" placeholder="Enter your address"
+                              <input id="autocomplete" placeholder="Enter your city"
                                      onFocus="geolocate()" type="text"></input>
                                      <input type="hidden" id="hdnLat" name="hdnLat"/>
                                <input type="hidden" id="hdnLong" name="hdnLong"/>
@@ -330,9 +348,8 @@
         </footer><!--footer end-->
         <!--scripts and plugins -->
         <!--must need plugin jquery-->
-
-        <!--bootstrap js plugin-->
-        <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+          <!--bootstrap js plugin-->
+       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
         <!--easing plugin for smooth scroll-->
         <script src="js/jquery.easing.1.3.min.js" type="text/javascript"></script>
         <!--easing plugin for nice scroll scroll-->
@@ -355,6 +372,8 @@
         <script src="js/owl.carousel.min.js" type="text/javascript"></script>
         <!--customizable plugin edit according to your needs-->
         <script src="js/custom.js" type="text/javascript"></script>
+
+
 
     </body>
 </html>
