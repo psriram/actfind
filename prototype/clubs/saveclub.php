@@ -27,7 +27,7 @@
         //$arr['status'] = 1;
 
         $id=$Models_General->addDetails('Club', $arr, $_SESSION['user']['user_id']);
-
+        $_SESSION['club_id'] = $id;
 
         $category = !empty($_POST['category']) ? $_POST['category'] : array();
 
@@ -39,6 +39,23 @@
               $Models_General->addDetails('Club_Category', $cats);
             }
         }
+        $arr = array();
+
+
+        $location_counter = $_POST['locationCounter'];
+        $locs = array();
+        $locs['club_id'] = $_SESSION['club_id'];
+        for($i=1;$i<=$location_counter;$i++){
+          $autocomplete = 'autocomplete' . $i;
+          $lat = 'hdnLat' . $i;
+          $lng = 'hdnLong' . $i;
+          $locs['location'] = !empty($_POST["$autocomplete"]) ? $_POST["$autocomplete"] : '';
+          $locs['location_lat'] = !empty($_POST[$lat]) ? $_POST[$lat] : '';
+          $locs['location_lng'] = !empty($_POST[$lng]) ? $_POST[$lng] : '';
+
+          $Models_General->addDetails('Club_Location', $locs);
+        }
+
 
         if (empty($id)){
           header("Location: /activityfinder/prototype/clubs/join&error=1");
