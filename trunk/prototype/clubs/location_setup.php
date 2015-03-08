@@ -3,9 +3,10 @@
 
   $layoutFile = 'layouts/home/templateClub';
   $pageTitle = 'Join a club';
-  /*$model = new Models_General();
-  $params['where'] = " and Club_Location_Id=".$model->qstr($_SESSION['club_location_id']);
-  $club_sessions = $model->getDetails('Class_Schedule',$params);*/
+  $model = new Models_General();
+  $params['where'] = " and Club_Id=".$model->qstr($_SESSION['club_id']);
+  $clubLocations = $model->getDetails('club_location',$params);
+ //pr($clubLocations);
 
 ?>
 
@@ -13,38 +14,25 @@
  $( document ).ready(function() {
     //var class_counter = 2;
 
+    $('#sltClubLocation li a').on('click', function(){
+      //alert(this);
+      var selectedOption = $(this).attr('data-value');
+      //alert(selectedOption);
+      $('#locKeywords').val($(this).text().trim());
+      $('#hdnLocation').val(selectedOption);
+    });
+
     $('#btnAddLocationClass').on('click', function(){
-       document.getElementById("formSchedule").submit();
 
-       /* var newRowDiv = $(document.createElement('div'))
-         .attr("class", 'row');
+        $.ajax({
+                url: "/activityfinder/prototype/clubs/saveschedule",
+                type: "post",
+                data: $("#formSchedule").serialize(),
+                success: function(d) {
+                    alert(d);
+                }
+            });
 
-        var newTextBoxDiv1 = $(document.createElement('div'))
-         .attr("class", 'col-sm-4');
-        var newTextBoxDiv2 = $(document.createElement('div'))
-         .attr("class", 'col-sm-4');
-        var newTextBoxDiv3 = $(document.createElement('div'))
-         .attr("class", 'col-sm-4');
-        var newTextBoxDiv4 = $(document.createElement('div'))
-         .attr("class", 'col-sm-4');
-        newTextBoxDiv1.after().html('<input type="text" name="InputClass' + class_counter +
-              '" id="InputClass' + class_counter + '" placeholder="Enter Class Name" class="form-control" value="">');
-        newTextBoxDiv2.after().html('<input type="text" name="InputStartAge' + class_counter +
-              '" id="InputStartAge' + class_counter + '" placeholder="Enter Start Age" class="form-control" value="">');
-        newTextBoxDiv3.after().html('<input type="text" name="InputEndAge' + class_counter +
-              '" id="InputEndAge' + class_counter + '" placeholder="Enter End Age" class="form-control" value="">');
-        newTextBoxDiv1.appendTo(newRowDiv);
-        newTextBoxDiv2.appendTo(newRowDiv);
-        newTextBoxDiv3.appendTo(newRowDiv);
-
-        newRowDiv.appendTo("#classBoxesGroup");
-
-        var newRowDiv1 = $(document.createElement('div'))
-         .attr("class", 'row');
-        newRowDiv1.after().html('<p></p>');
-        newRowDiv1.appendTo("#classBoxesGroup");
-
-        class_counter++;*/
     });
 
  });
@@ -81,11 +69,46 @@
             <div class="well well-sm"><strong><span>Create Team </span></div>
 
             <div class="form-group">
+
+                     <?php if (!empty($clubLocations)) { ?>
+                    <div class="dropdown">
+                         <input
+                                    id="locKeywords"
+                                    class="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    type="text"
+                                    name="lockeywords"
+                                    size="50"
+                                    maxlength="100"
+                                    value=""
+                                    placeholder="Select Location"
+                                    />
+
+                         <ul class="dropdown-menu" id="sltClubLocation">
+                        <?php
+                          foreach ($clubLocations as $v) {
+                            ?>
+
+                              <li role="presentation"><a role="menuitem" href="javascript:;" data-value="<?php echo $v['Club_Location_Id']; ?>" data-copy="<?php echo $v['Club_Location_Id']; ?>">
+                              <?php echo $v['location']; ?>
+                              </a></li>
+
+                          <?php
+                          }?>
+                           </ul>
+                           <input type="hidden" id="hdnLocation" name="hdnLocation" value=""/>
+                    </div>
+
+                        <?php
+                        }
+                      ?>
+            </div>
+           <!-- <div class="form-group">
                 <label for="InputTeamLocation">Team Location</label>
                 <div class="input-group">
                     <input type="text" class="form-control" name="InputTeamLocation" id="InputTeamLocation" placeholder="Enter Team Location" value="">
                </div>
-            </div>
+            </div>-->
 
 
             <div class="panel panel-default">
@@ -242,15 +265,13 @@
 
 
         <hr />
-
+        <div id="div1"></div>
            <!-- <div id="map-canvas"></div>-->
 
             <!-- create team code-->
 
 
-            <input type="hidden" name="lat" id="lat" value="">
-            <input type="hidden" name="lng" id="lng" value="">
-            <input type="hidden" name="place_id" id="place_id" value="" />
+
 
         </form>
 
