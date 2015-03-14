@@ -42,12 +42,80 @@
               $Models_General->addDetails('Class_Schedule', $arr);
             }
         }
-         $return = array('success' => 1, 'msg' => '');
+         // $return = array('success' => 1, 'msg' => '');
 
-         echo json_encode($return);
-         exit;
+         //echo json_encode($return);
+         //exit;
          //header("Location: /activityfinder/prototype/clubs/location_setup");
+         if (!empty($_POST['hdnLocation'])) {
+            $club_location_id = $_POST['hdnLocation'];
+          }
+          $query = "SELECT cs.*,ch.* FROM class_setup cs join class_schedule ch on cs.class_id=ch.class_id and cs.club_location_id=ch.club_location_id WHERE ch.Club_Location_Id = ? ORDER BY ch.Created_Date DESC";
 
+          //exit;
+          $resultModuleFields = $Models_General->fetchAll($query, array($club_location_id), 0);
+
+          //pr($resultModuleFields);
+          //exit;
+          if (empty($resultModuleFields)) {
+            echo "No schedule found";
+            exit;
+          }
+          //pr($resultModuleFields);
+          //$resultModuleFields2 = array();
+        ?>
+         <div class="container">
+        <h2>Schedule for Location <?php echo $_POST['lockeywords']; ?> </h2>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Class Name</th>
+              <th>Class Start Age</th>
+              <th>Class End Age</th>
+              <th>Class Start Date</th>
+              <th>Class End Date</th>
+              <th>#Sessions</th>
+              <th>Class Day</th>
+              <th>Class Start Time</th>
+              <th>Class End Time</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+        <?php
+          $row_counter=1;
+          foreach ($resultModuleFields as $k => $v) {
+            $btnId = "btnCopySchedule".$row_counter;
+            //echo($v['Class_Day']);
+        ?>
+
+
+            <tr>
+              <td><?php echo $v['Class_Name']; ?></td>
+              <td><?php echo $v['Start_Age']; ?></td>
+              <td><?php echo $v['End_Age']; ?></td>
+              <td><?php echo $v['Start_Date']; ?></td>
+              <td><?php echo $v['End_Date']; ?></td>
+               <td><?php echo $v['Sessions']; ?></td>
+              <td><?php echo $v['Class_Day']; ?></td>
+              <td><?php echo $v['Class_Start_Time']; ?></td>
+              <td><?php echo $v['Class_End_Time']; ?></td>
+              <td><button type="button" id="<?php echo $btnId; ?>" class="btn btn-primary btn-sm btn-block" onclick="copySchedule('<?php echo $v['Class_Schedule_Id']; ?>')">
+              Copy Schedule</button></td>
+            </tr>
+
+
+
+    <?php
+        $row_counter++;
+      }
+      ?>
+       </tbody>
+        </table>
+      </div>
+    <?php
+      exit;
       }
       else{
         header("Location: /activityfinder/prototype/users/register?action=signup&callback=register");
@@ -59,4 +127,4 @@
       echo json_encode($return);
       exit;
 
-  }
+  }?>

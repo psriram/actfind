@@ -11,6 +11,17 @@
 ?>
 
 <script type="text/javascript">
+function copySchedule(class_schedule_id){
+    var data = 'id='+ class_schedule_id
+     $.ajax({
+                url: "/activityfinder/prototype/clubs/getschedule",
+                type: "GET",
+                data: data,
+                success: function(d) {
+                    var obj = JSON.parse(d);
+                }
+            });
+}
  $( document ).ready(function() {
     //var class_counter = 2;
 
@@ -18,18 +29,26 @@
       //alert(this);
       var selectedOption = $(this).attr('data-value');
       //alert(selectedOption);
+      //alert(selectedOption);
       $('#locKeywords').val($(this).text().trim());
       $('#hdnLocation').val(selectedOption);
+
     });
 
     $('#btnAddLocationClass').on('click', function(){
+        var location_val = $("#locKeywords").val().trim();
+        if(location_val==""){
+          alert("Please select location");
+          $("#locKeywords").focus();
+          return false;
+        }
 
         $.ajax({
                 url: "/activityfinder/prototype/clubs/saveschedule",
                 type: "post",
                 data: $("#formSchedule").serialize(),
                 success: function(d) {
-                    alert(d);
+                    $('#div1').html(d);
                 }
             });
 
@@ -265,7 +284,10 @@
 
 
         <hr />
-        <div id="div1"></div>
+        <div id="div1">
+
+
+        </div>
            <!-- <div id="map-canvas"></div>-->
 
             <!-- create team code-->
