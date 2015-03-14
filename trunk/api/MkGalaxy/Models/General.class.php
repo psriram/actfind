@@ -5,10 +5,9 @@ class Models_General extends App_base
 
     public function addDetails($tableName, $data=array(), $uid='')
     {
-      if (!empty($uid)) {
-          $this->checkUser($uid);
-      }
+
       $insertSQL = $this->_connMain->AutoExecute($tableName, $data, 'INSERT');
+
 
       $id = $this->_connMain->Insert_ID();
       return $id;
@@ -41,7 +40,9 @@ class Models_General extends App_base
       if ($cache) {
         $result = $this->_connMain->CacheExecute($cacheTime, $params['query'], $params['parameters']);
       } else {
+
         $result = $this->_connMain->Execute($params['query'], $params['parameters']);
+
       }
     } else {
       $where = !empty($params['where']) ? $params['where'] : '';
@@ -60,9 +61,11 @@ class Models_General extends App_base
     }
     $return = array();
     while (!$result->EOF) {
+
         $return[] = $result->fields;
         $result->MoveNext();
      }
+
     return $return;
   }
 
@@ -74,10 +77,13 @@ class Models_General extends App_base
 
   public function fetchRow($query, $params, $cacheTime=300)
   {
+
     $data = array();
     $data['query'] = $query;
     $data['parameters'] = $params;
+
     $row = $this->getDetails('', ($cacheTime > 0), $data, $cacheTime);
+
     if (!empty($row)) {
       $row = $row[0];
     }
@@ -86,10 +92,11 @@ class Models_General extends App_base
 
   public function fetchAll($query, $params, $cacheTime=300)
   {
+
     $data = array();
     $data['query'] = $query;
     $data['parameters'] = $params;
-    $result = $this->getDetails('', ($cacheTime > 0), $data, $cacheTime);
+    $result = $this->getDetails('', $data, ($cacheTime > 0),$cacheTime);
     return $result;
   }
 
