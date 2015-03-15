@@ -12,13 +12,95 @@
 
 <script type="text/javascript">
 function copySchedule(class_schedule_id){
-    var data = 'id='+ class_schedule_id
+    var data = {schedule_id : class_schedule_id}
+    $("#btnAddLocationClass").show();
+    $("#btnUpdateLocationClass").hide();
+    //var data = 'schedule_id='+ class_schedule_id
      $.ajax({
                 url: "/activityfinder/prototype/clubs/getschedule",
                 type: "GET",
                 data: data,
                 success: function(d) {
+                    //alert("here");
                     var obj = JSON.parse(d);
+
+                    $('#InputClass').val(obj.class_name);
+                    $('#InputStartAge').val(obj.start_age);
+                    $('#InputEndAge').val(obj.end_age);
+                    $('#InputStartDate').val(obj.start_date);
+                    $('#InputEndDate').val(obj.end_date);
+                    $('#InputSessions').val(obj.sessions);
+                    $('#InputStartTime').val(obj.class_start_time);
+                    $('#InputEndTime').val(obj.class_end_time);
+
+                    var inputs = document.getElementsByTagName("input");
+                    for(var i = 0; i < inputs.length; i++){
+                      if(inputs[i].type == "checkbox"){
+                        if(inputs[i].value==obj.class_day){
+                          inputs[i].checked = true;
+                        }
+                      }
+                    }
+                    $("#InputClass").focus();
+                    /*for(var i=0; i < document.formSchedule.class_day[].length; i++){
+                      if(document.formSchedule.class_day[i].value==d.class_day){
+                         document.formSchedule.class_day[i].checked=true;
+                      }
+                    }*/
+                    //console.log(obj);
+                }
+            });
+}
+function editSchedule(class_schedule_id){
+    var data = {schedule_id : class_schedule_id};
+    $("#btnAddLocationClass").hide();
+    $("#btnUpdateLocationClass").show();
+    //var data = 'schedule_id='+ class_schedule_id
+     $.ajax({
+                url: "/activityfinder/prototype/clubs/getschedule",
+                type: "POST",
+                data: data,
+                success: function(d) {
+                   //alert("here");
+                    var obj = JSON.parse(d);
+
+                    $('#InputClass').val(obj.class_name);
+                    $('#InputStartAge').val(obj.start_age);
+                    $('#InputEndAge').val(obj.end_age);
+                    $('#InputStartDate').val(obj.start_date);
+                    $('#InputEndDate').val(obj.end_date);
+                    $('#InputSessions').val(obj.sessions);
+                    $('#InputStartTime').val(obj.class_start_time);
+                    $('#InputEndTime').val(obj.class_end_time);
+                    $('#hdnClassId').val(obj.class_id);
+                    $('#hdnClassSchedleId').val(obj.class_schedule_id);
+                    var inputs = document.getElementsByTagName("input");
+                    for(var i = 0; i < inputs.length; i++){
+                      if(inputs[i].type == "checkbox"){
+                        if(inputs[i].value==obj.class_day){
+                          inputs[i].checked = true;
+                        }
+                      }
+                    }
+                    $("#InputClass").focus();
+                    /*for(var i=0; i < document.formSchedule.class_day[].length; i++){
+                      if(document.formSchedule.class_day[i].value==d.class_day){
+                         document.formSchedule.class_day[i].checked=true;
+                      }
+                    }*/
+                    //console.log(obj);
+                }
+            });
+}
+function deleteSchedule(class_id,class_schedule_id){
+    var data = {class_id: class_id,schedule_id : class_schedule_id}
+    //var data = 'schedule_id='+ class_schedule_id
+     $.ajax({
+                url: "/activityfinder/prototype/clubs/deleteschedule",
+                type: "POST",
+                data: data,
+                success: function(d) {
+
                 }
             });
 }
@@ -28,11 +110,22 @@ function copySchedule(class_schedule_id){
     $('#sltClubLocation li a').on('click', function(){
       //alert(this);
       var selectedOption = $(this).attr('data-value');
-      //alert(selectedOption);
+      var location_name = $(this).text().trim();
+      alert(selectedOption);
       //alert(selectedOption);
       $('#locKeywords').val($(this).text().trim());
       $('#hdnLocation').val(selectedOption);
 
+      var data = {club_location_id : selectedOption,location_name:location_name};
+    //var data = 'schedule_id='+ class_schedule_id
+     $.ajax({
+                url: "/activityfinder/prototype/clubs/getlocationschedule",
+                type: "GET",
+                data: data,
+                success: function(d) {
+                  $('#div1').html(d);
+                }
+            });
     });
 
     $('#btnAddLocationClass').on('click', function(){
@@ -42,13 +135,58 @@ function copySchedule(class_schedule_id){
           $("#locKeywords").focus();
           return false;
         }
+        var location_id = $("#hdnLocation").val();
+        //alert(location_id);
 
         $.ajax({
-                url: "/activityfinder/prototype/clubs/saveschedule",
+
+                url: "/activityfinder/prototype/clubs/saveschedule?location_id="+location_id,
                 type: "post",
                 data: $("#formSchedule").serialize(),
                 success: function(d) {
-                    $('#div1').html(d);
+                    //var location_id = $("#hdnLocation").val();
+                    //alert(location_id);
+                    var location_name = $('#locKeywords').val();
+                    var data = {club_location_id : location_id,location_name:location_name}
+                    $.ajax({
+                        url: "/activityfinder/prototype/clubs/getlocationschedule",
+                        type: "GET",
+                        data: data,
+                        success: function(d) {
+                          $('#div1').html(d);
+                        }
+                    });
+                    //$('#div1').html(d);
+                }
+            });
+
+    });
+
+    $('#btnUpdateLocationClass').on('click', function(){
+        var location_val = $("#locKeywords").val().trim();
+        if(location_val==""){
+          alert("Please select location");
+          $("#locKeywords").focus();
+          return false;
+        }
+
+        $.ajax({
+                url: "/activityfinder/prototype/clubs/updateschedule",
+                type: "post",
+                data: $("#formSchedule").serialize(),
+                success: function(d) {
+                    var location_id = $("#hdnLocation").val();
+                    var location_name = $('#locKeywords').val();
+                    var data = {club_location_id : location_id,location_name:location_name}
+                    $.ajax({
+                        url: "/activityfinder/prototype/clubs/getlocationschedule",
+                        type: "GET",
+                        data: data,
+                        success: function(d) {
+                          $('#div1').html(d);
+                        }
+                    });
+                    //$('#div1').html(d);
                 }
             });
 
@@ -275,6 +413,8 @@ function copySchedule(class_schedule_id){
                            <div class="col-sm-2">
                             <button type="button" id="btnAddLocationClass" class="btn btn-primary btn-sm btn-block">
                                 Add Class</button>
+                            <button type="button" id="btnUpdateLocationClass" class="btn btn-primary btn-sm btn-block" style="display:none">
+                                Update</button>
                             </div>
                       </div>
                   </div>
@@ -293,8 +433,8 @@ function copySchedule(class_schedule_id){
             <!-- create team code-->
 
 
-
-
+         <input type="hidden" id="hdnClassId" name="hdnLocation" value=""/>
+         <input type="hidden" id="hdnClassSchedleId" name="hdnLocation" value=""/>
         </form>
 
     </div>
