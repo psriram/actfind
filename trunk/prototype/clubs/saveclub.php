@@ -56,6 +56,14 @@
           $Models_General->addDetails('Club_Location', $locs);
         }
 
+        $class_counter = $_POST['classCounter'];
+        $class = array();
+        $class['Club_id'] = $_SESSION['club_id'];
+        for($i=1;$i<=$class_counter;$i++){
+          $classid= 'InputClass' . $i;
+          $class['class_name'] = !empty($_POST["$classid"]) ? $_POST["$classid"] : '';
+          $Models_General->addDetails('club_class', $class);
+        }
 
         if (empty($id)){
           header("Location: /activityfinder/prototype/clubs/join&error=1");
