@@ -46,6 +46,7 @@
     // of the Google Places API to help users fill in the information.
     $( document ).ready(function() {
        var location_counter = 2;
+       var class_counter = 2;
         initialize('autocomplete1','hdnLat1','hdnLong1');
 
         $('#btnFindLocation').on('click', function(){
@@ -98,6 +99,20 @@
            initialize('autocomplete' + location_counter,'hdnLat' + location_counter,'hdnLong' + location_counter);
            $('#locationCounter').val(location_counter);
            location_counter++;
+      });
+
+      $('#btnAddClass').on('click', function(){
+           var newTextBoxDiv2 = $(document.createElement('div')).attr({"class":"input-group classField"})
+           //.attr("id",'locationField')
+           //.attr("class", 'input-group');
+           //$(".something").attr( { title:"Test", alt:"Test2" } );
+           newTextBoxDiv2.after().html('</br><input type="text" name="InputClass' + class_counter +
+                '" id="InputClass' + class_counter + '" placeholder=" Enter Class/Team ' + class_counter + '" class="form-control" value="">'
+            );
+           newTextBoxDiv2.appendTo("#divClass");
+
+           $('#classCounter').val(class_counter);
+           class_counter++;
       });
     });
     var placeSearch, autocomplete;
@@ -209,6 +224,12 @@
              height: 20px;
              margin-bottom: 2px;
           }
+          .classField{
+             position: relative;
+             width: 280px;
+             height: 20px;
+             margin-bottom: 2px;
+          }
         </style>
 
 
@@ -267,6 +288,17 @@
                    <!--<button type="button" id="btnFindLocation" class="btn btn-link">Cannot Find Location</button>-->
                     <button type="button" id="btnAddLocation" class="btn btn-link">Add Location</button>
                 </div>
+
+                <div id="divClass" class="form-group">
+                     <label for="InputClass1">Class/Team</label>
+                     <div class="input-group classField">
+                        <input type="text" class="form-control" name="InputClass1" id="InputClass1" placeholder="Enter Class" value="" required>
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <button type="button" id="btnAddClass" class="btn btn-link">Add Class/Team</button>
+                </div>
                <!-- <div id="locationgroup" class="form-group" style="display:none">
                    <div class="row">
                         <div class="col-sm-4">Address</div>
@@ -308,7 +340,7 @@
 
 
             <input type="hidden" name="locationCounter" id="locationCounter" value="">
-
+            <input type="hidden" name="classCounter" id="classCounter" value="">
         </form>
 
     </div>

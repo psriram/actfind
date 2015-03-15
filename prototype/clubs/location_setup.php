@@ -6,15 +6,19 @@
   $model = new Models_General();
   $params['where'] = " and Club_Id=".$model->qstr($_SESSION['club_id']);
   $clubLocations = $model->getDetails('club_location',$params);
+
+  $params['where'] = " and Club_Id=".$model->qstr($_SESSION['club_id']);
+  $clubClasses = $model->getDetails('club_class',$params);
  //pr($clubLocations);
 
 ?>
 
 <script type="text/javascript">
 function copySchedule(class_schedule_id){
-    var data = {schedule_id : class_schedule_id}
-    $("#btnAddLocationClass").show();
-    $("#btnUpdateLocationClass").hide();
+  alert(class_schedule_id);
+    var data = {schedule_id : class_schedule_id};
+    //$("#btnAddLocationClass").show();
+    //$("#btnUpdateLocationClass").hide();
     //var data = 'schedule_id='+ class_schedule_id
      $.ajax({
                 url: "/activityfinder/prototype/clubs/getschedule",
@@ -23,8 +27,8 @@ function copySchedule(class_schedule_id){
                 success: function(d) {
                     //alert("here");
                     var obj = JSON.parse(d);
-
-                    $('#InputClass').val(obj.class_name);
+                    //console.log(obj);
+                    $('#classKeywords').val(obj.class_name);
                     $('#InputStartAge').val(obj.start_age);
                     $('#InputEndAge').val(obj.end_age);
                     $('#InputStartDate').val(obj.start_date);
@@ -39,9 +43,12 @@ function copySchedule(class_schedule_id){
                         if(inputs[i].value==obj.class_day){
                           inputs[i].checked = true;
                         }
+                        else{
+                          inputs[i].checked = false;
+                        }
                       }
                     }
-                    $("#InputClass").focus();
+                    $("#classKeywords").focus();
                     /*for(var i=0; i < document.formSchedule.class_day[].length; i++){
                       if(document.formSchedule.class_day[i].value==d.class_day){
                          document.formSchedule.class_day[i].checked=true;
@@ -64,7 +71,7 @@ function editSchedule(class_schedule_id){
                    //alert("here");
                     var obj = JSON.parse(d);
 
-                    $('#InputClass').val(obj.class_name);
+                    $('#classKeywords').val(obj.class_name);
                     $('#InputStartAge').val(obj.start_age);
                     $('#InputEndAge').val(obj.end_age);
                     $('#InputStartDate').val(obj.start_date);
@@ -82,7 +89,7 @@ function editSchedule(class_schedule_id){
                         }
                       }
                     }
-                    $("#InputClass").focus();
+                    $("#classKeywords").focus();
                     /*for(var i=0; i < document.formSchedule.class_day[].length; i++){
                       if(document.formSchedule.class_day[i].value==d.class_day){
                          document.formSchedule.class_day[i].checked=true;
@@ -111,7 +118,7 @@ function deleteSchedule(class_id,class_schedule_id){
       //alert(this);
       var selectedOption = $(this).attr('data-value');
       var location_name = $(this).text().trim();
-      alert(selectedOption);
+      //alert(selectedOption);
       //alert(selectedOption);
       $('#locKeywords').val($(this).text().trim());
       $('#hdnLocation').val(selectedOption);
@@ -128,6 +135,18 @@ function deleteSchedule(class_id,class_schedule_id){
             });
     });
 
+     $('#sltClubClass li a').on('click', function(){
+      //alert(this);
+      var selectedOption = $(this).attr('data-value');
+      var class_name = $(this).text().trim();
+      alert(selectedOption);
+      //alert(selectedOption);
+      $('#classKeywords').val($(this).text().trim());
+      $('#hdnClass').val(selectedOption);
+
+
+    });
+
     $('#btnAddLocationClass').on('click', function(){
         var location_val = $("#locKeywords").val().trim();
         if(location_val==""){
@@ -136,11 +155,12 @@ function deleteSchedule(class_id,class_schedule_id){
           return false;
         }
         var location_id = $("#hdnLocation").val();
+        var class_id = $("#hdnClass").val();
         //alert(location_id);
 
         $.ajax({
 
-                url: "/activityfinder/prototype/clubs/saveschedule?location_id="+location_id,
+                url: "/activityfinder/prototype/clubs/saveschedule?location_id="+location_id+'&club_class_id='+class_id,
                 type: "post",
                 data: $("#formSchedule").serialize(),
                 success: function(d) {
@@ -169,9 +189,10 @@ function deleteSchedule(class_id,class_schedule_id){
           $("#locKeywords").focus();
           return false;
         }
-
+        var location_id = $("#hdnLocation").val();
+        var class_id = $("#hdnClass").val();
         $.ajax({
-                url: "/activityfinder/prototype/clubs/updateschedule",
+                url: "/activityfinder/prototype/clubs/updateschedule?location_id="+location_id+'&club_class_id='+class_id,
                 type: "post",
                 data: $("#formSchedule").serialize(),
                 success: function(d) {
@@ -239,6 +260,7 @@ function deleteSchedule(class_id,class_schedule_id){
                                     maxlength="100"
                                     value=""
                                     placeholder="Select Location"
+                                    autocomplete="off"
                                     />
 
                          <ul class="dropdown-menu" id="sltClubLocation">
@@ -287,7 +309,43 @@ function deleteSchedule(class_id,class_schedule_id){
                               <div class="col-sm-2">#Sessions</div>
                             </div>
                             <div class="row" >
-                                <div class="col-sm-2"><input type="text" class="form-control" name="InputClass" id="InputClass" placeholder="Enter Class Name" value=""></div>
+                                <!--<div class="col-sm-2"><input type="text" class="form-control" name="InputClass" id="InputClass" placeholder="Enter Class Name" value=""></div>-->
+                                <div class="col-sm-2">
+
+                                     <?php if (!empty($clubClasses)) { ?>
+                                    <div class="dropdown">
+                                         <input
+                                                    id="classKeywords"
+                                                    class="dropdown-toggle"
+                                                    data-toggle="dropdown"
+                                                    type="text"
+                                                    name="classkeywords"
+                                                    size="20"
+                                                    maxlength="20"
+                                                    value=""
+                                                    placeholder="Select Class"
+                                                    autocomplete="off"
+                                                    />
+
+                                         <ul class="dropdown-menu" id="sltClubClass">
+                                        <?php
+                                          foreach ($clubClasses as $v) {
+                                            ?>
+
+                                              <li role="presentation"><a role="menuitem" href="javascript:;" data-value="<?php echo $v['club_classid']; ?>" data-copy="<?php echo $v['club_classid']; ?>">
+                                              <?php echo $v['class_name']; ?>
+                                              </a></li>
+
+                                          <?php
+                                          }?>
+                                           </ul>
+                                           <input type="hidden" id="hdnClass" name="hdnClass" value=""/>
+                                    </div>
+
+                                        <?php
+                                        }
+                                      ?>
+                                </div>
                                 <div class="col-sm-2"><input type="text" class="form-control" name="InputStartAge" id="InputStartAge" placeholder="Enter Start Age" value=""></div>
                                 <div class="col-sm-2"><input type="text" class="form-control" name="InputEndAge" id="InputEndAge" placeholder="Enter End Age" value=""></div>
                                 <div class="col-sm-2">
