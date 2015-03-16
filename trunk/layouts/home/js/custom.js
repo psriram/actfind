@@ -170,7 +170,7 @@ $('#go').on('click', function(){
     var lng = $("#hdnLong").val();
    // alert($('#hdnRadius').val());
    // alert(radius);
-   // alert(category);
+
   //  alert(lat);
   //  alert(lng);
     //document.getElementById("searchForm").action="searchresults.php?lat="+lat+"&lng="+lng+"&radius="+radius+"&category="+category

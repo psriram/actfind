@@ -7,26 +7,13 @@
 
         <title></title>
         <base href="<?php echo HTTPPATH; ?>/layouts/home/" />
-       <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-        <!-- custom css -->
-        <link href="css/style.css" rel="stylesheet" type="text/css" media="screen">
-        <!-- font awesome for icons -->
-        <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet">
-        <!-- flex slider css -->
-        <link href="css/flexslider.css" rel="stylesheet" type="text/css" media="screen">
-        <!-- animated css  -->
-        <link href="css/animate.css" rel="stylesheet" type="text/css" media="screen">
-        <!--owl carousel css-->
-        <link href="css/owl.carousel.css" rel="stylesheet" type="text/css" media="screen">
-        <link href="css/owl.theme.css" rel="stylesheet" type="text/css" media="screen">
+      <?php
+        $file = SITEDIR.'/includes/club_header.php';
 
-        <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/v4.0.0/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
-        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
-      <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/v4.0.0/src/js/bootstrap-datetimepicker.js"></script>
+        if (file_exists($file)) {
+          include_once($file);
+        }
+      ?>
 <script type="text/javascript">
  $( document ).ready(function() {
 
