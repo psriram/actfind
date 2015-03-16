@@ -80,7 +80,7 @@ function editSchedule(class_schedule_id){
                     $('#InputStartTime').val(obj.class_start_time);
                     $('#InputEndTime').val(obj.class_end_time);
                     $('#hdnClassId').val(obj.class_id);
-                    $('#hdnClassSchedleId').val(obj.class_schedule_id);
+                    $('#hdnClassScheduleId').val(obj.class_schedule_id);
                     var inputs = document.getElementsByTagName("input");
                     for(var i = 0; i < inputs.length; i++){
                       if(inputs[i].type == "checkbox"){
@@ -99,14 +99,25 @@ function editSchedule(class_schedule_id){
                 }
             });
 }
-function deleteSchedule(class_id,class_schedule_id){
-    var data = {class_id: class_id,schedule_id : class_schedule_id}
+function deleteSchedule(class_id){
+    var data = {class_id: class_id}
     //var data = 'schedule_id='+ class_schedule_id
      $.ajax({
                 url: "/activityfinder/prototype/clubs/deleteschedule",
                 type: "POST",
                 data: data,
                 success: function(d) {
+                  var location_id = $("#hdnLocation").val();
+                  var location_name = $('#locKeywords').val();
+                  var data = {club_location_id : location_id,location_name:location_name}
+                  $.ajax({
+                        url: "/activityfinder/prototype/clubs/getlocationschedule",
+                        type: "GET",
+                        data: data,
+                        success: function(d) {
+                          $('#div1').html(d);
+                        }
+                  });
 
                 }
             });
@@ -189,10 +200,10 @@ function deleteSchedule(class_id,class_schedule_id){
           $("#locKeywords").focus();
           return false;
         }
-        var location_id = $("#hdnLocation").val();
-        var class_id = $("#hdnClass").val();
+        var class_id = $('#hdnClassId').val();
+        var class_schedule_id = $('#hdnClassScheduleId').val();
         $.ajax({
-                url: "/activityfinder/prototype/clubs/updateschedule?location_id="+location_id+'&club_class_id='+class_id,
+                url: "/activityfinder/prototype/clubs/updateschedule?class_id="+class_id+'&class_schedule_id='+class_schedule_id,
                 type: "post",
                 data: $("#formSchedule").serialize(),
                 success: function(d) {
@@ -491,8 +502,8 @@ function deleteSchedule(class_id,class_schedule_id){
             <!-- create team code-->
 
 
-         <input type="hidden" id="hdnClassId" name="hdnLocation" value=""/>
-         <input type="hidden" id="hdnClassSchedleId" name="hdnLocation" value=""/>
+         <input type="hidden" id="hdnClassId" name="hdnClassId" value=""/>
+         <input type="hidden" id="hdnClassScheduleId" name="hdnClassScheduleId" value=""/>
         </form>
 
     </div>
