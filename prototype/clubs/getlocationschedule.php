@@ -59,9 +59,9 @@
               <td><?php echo $v['Class_End_Time']; ?></td>
               <td><button type="button" id="<?php echo $btnId; ?>" class="btn btn-primary btn-sm btn-block" onclick="copySchedule('<?php echo $v['Class_Schedule_Id']; ?>')">
               Copy</button></td>
-              <td><button type="button" id="<?php echo $btnEdit; ?>" class="btn btn-primary btn-sm btn-block" onclick="editSchedule('<?php echo $v['Class_Schedule_Id']; ?>')">
-              Edit</button></td>
-              <td><button type="button" id="<?php echo $btnDelete; ?>" class="btn btn-primary btn-sm btn-block" onclick="deleteSchedule('<?php echo $v['Class_Schedule_Id']; ?>')">
+             <!-- <td><button type="button" id="<?php echo $btnEdit; ?>" class="btn btn-primary btn-sm btn-block" onclick="editSchedule('<?php echo $v['Class_Schedule_Id']; ?>')">
+              Edit</button></td>-->
+              <td><button type="button" id="<?php echo $btnDelete; ?>" class="btn btn-primary btn-sm btn-block" onclick="deleteSchedule('<?php echo $v['Class_Id']; ?>')">
               Delete</button></td>
             </tr>
 
