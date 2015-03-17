@@ -23,7 +23,7 @@
 
  });
 </script>
-
+<script src="js/club.js" type="text/javascript"></script>
 
   </head>
     <body >
