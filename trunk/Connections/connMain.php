@@ -6,7 +6,7 @@ $hostname_connMain = "localhost";
 $database_connMain = "act_finder";
 $username_connMain = "user";
 $password_connMain = "password";
-$connMain = mysql_connect($hostname_connMain, $username_connMain, $password_connMain) or trigger_error(mysql_error(),E_USER_ERROR); 
+$connMain = mysql_connect($hostname_connMain, $username_connMain, $password_connMain) or trigger_error(mysql_error(),E_USER_ERROR);
 mysql_select_db($database_connMain, $connMain) or die('could not select db');
 $dsn_connMain = 'mysql:dbname='.$database_connMain.';host='.$hostname_connMain;
 

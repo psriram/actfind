@@ -61,8 +61,22 @@
         $class['Club_id'] = $_SESSION['club_id'];
         for($i=1;$i<=$class_counter;$i++){
           $classid= 'InputClass' . $i;
+          $startageid= 'InputStartAge' . $i;
+          $endageid= 'InputEndAge' . $i;
           $class['class_name'] = !empty($_POST["$classid"]) ? $_POST["$classid"] : '';
+          $class['Start_Age'] = !empty($_POST["$startageid"]) ? $_POST["$startageid"] : '';
+          $class['End_Age'] = !empty($_POST["$endageid"]) ? $_POST["$endageid"] : '';
+          $class['updated_date'] = date('Y-m-d H:i:s');
           $Models_General->addDetails('club_class', $class);
+        }
+
+        $schedule_counter = $_POST['scheduleCounter'];
+        $schedule = array();
+        $schedule['Club_id'] = $_SESSION['club_id'];
+        for($i=1;$i<=$schedule_counter;$i++){
+          $scheduleid= 'InputSchedule' . $i;
+          $schedule['schedule_name'] = !empty($_POST["$scheduleid"]) ? $_POST["$scheduleid"] : '';
+          $Models_General->addDetails('club_schedule_type', $schedule);
         }
 
         if (empty($id)){

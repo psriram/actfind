@@ -6,6 +6,8 @@ class Models_General extends App_base
     public function addDetails($tableName, $data=array(), $uid='')
     {
 
+     // pr($data);
+     // exit;
       $insertSQL = $this->_connMain->AutoExecute($tableName, $data, 'INSERT');
 
 
@@ -82,7 +84,7 @@ class Models_General extends App_base
     $data['query'] = $query;
     $data['parameters'] = $params;
 
-    $row = $this->getDetails('', ($cacheTime > 0), $data, $cacheTime);
+    $row = $this->getDetails('', $data, ($cacheTime > 0),$cacheTime);
 
     if (!empty($row)) {
       $row = $row[0];

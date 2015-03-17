@@ -44,77 +44,7 @@
  <script>
     // This example displays an address form, using the autocomplete feature
     // of the Google Places API to help users fill in the information.
-    $( document ).ready(function() {
-       var location_counter = 2;
-       var class_counter = 2;
-        initialize('autocomplete1','hdnLat1','hdnLong1');
 
-        $('#btnFindLocation').on('click', function(){
-          //$('#locfind').hide();
-          $('#locationgroup').show();
-          /*
-           var newRowDiv = $(document.createElement('div'))
-           .attr("class", 'row');
-
-          var newTextBoxDiv1 = $(document.createElement('div'))
-           .attr("class", 'col-sm-4');
-          var newTextBoxDiv2 = $(document.createElement('div'))
-           .attr("class", 'col-sm-4');
-          var newTextBoxDiv3 = $(document.createElement('div'))
-           .attr("class", 'col-sm-4');
-          var newTextBoxDiv4 = $(document.createElement('div'))
-           .attr("class", 'col-sm-4');
-          newTextBoxDiv1.after().html('<input type="text" name="InputAddress' + class_counter +
-                '" id="InputAddress' + class_counter + '" placeholder="Enter Address" class="form-control" value="">');
-          newTextBoxDiv2.after().html('<input type="text" name="InputCity' + class_counter +
-                '" id="InputCity' + class_counter + '" placeholder="Enter City" class="form-control" value="">');
-          newTextBoxDiv3.after().html('<input type="text" name="InputState' + class_counter +
-                '" id="InputState' + class_counter + '" placeholder="Enter State" class="form-control" value="">');
-          newTextBoxDiv1.appendTo(newRowDiv);
-          newTextBoxDiv2.appendTo(newRowDiv);
-          newTextBoxDiv3.appendTo(newRowDiv);
-
-          newRowDiv.appendTo("#classBoxesGroup");
-
-          var newRowDiv1 = $(document.createElement('div'))
-           .attr("class", 'row');
-          newRowDiv1.after().html('<p></p>');
-          newRowDiv1.appendTo("#locationgroup");
-
-          class_counter++;*/
-      });
-      $('#btnAddLocation').on('click', function(){
-           var newTextBoxDiv1 = $(document.createElement('div')).attr({"class":"input-group locationField"})
-           //.attr("id",'locationField')
-           //.attr("class", 'input-group');
-           //$(".something").attr( { title:"Test", alt:"Test2" } );
-           newTextBoxDiv1.after().html('</br><input type="text" name="autocomplete' + location_counter +
-                '" id="autocomplete' + location_counter + '" placeholder=" Enter Location ' + location_counter + '" onFocus="geolocate()" class="form-control" value="">' +
-                '<input type="hidden" id="hdnLat' + location_counter + '" name="hdnLat' + location_counter + '"/>' +
-                '<input type="hidden" id="hdnLong' + location_counter + '" name="hdnLong' + location_counter + '"/>'
-                );
-
-
-           newTextBoxDiv1.appendTo("#locfindgroup");
-           initialize('autocomplete' + location_counter,'hdnLat' + location_counter,'hdnLong' + location_counter);
-           $('#locationCounter').val(location_counter);
-           location_counter++;
-      });
-
-      $('#btnAddClass').on('click', function(){
-           var newTextBoxDiv2 = $(document.createElement('div')).attr({"class":"input-group classField"})
-           //.attr("id",'locationField')
-           //.attr("class", 'input-group');
-           //$(".something").attr( { title:"Test", alt:"Test2" } );
-           newTextBoxDiv2.after().html('</br><input type="text" name="InputClass' + class_counter +
-                '" id="InputClass' + class_counter + '" placeholder=" Enter Class/Team ' + class_counter + '" class="form-control" value="">'
-            );
-           newTextBoxDiv2.appendTo("#divClass");
-
-           $('#classCounter').val(class_counter);
-           class_counter++;
-      });
-    });
     var placeSearch, autocomplete;
     var componentForm = {
       street_number: 'short_name',
@@ -124,7 +54,7 @@
       country: 'long_name',
       postal_code: 'short_name'
     };
-
+    initialize('autocomplete1','hdnLat1','hdnLong1');
     function initialize(elem,lat,lng) {
       // Create the autocomplete object, restricting the search
       // to geographical location types.
@@ -145,30 +75,9 @@
       var place = autocomplete.getPlace();
       document.getElementById(lat).value = place.geometry.location.lat();
       document.getElementById(lng).value = place.geometry.location.lng();
-      //console.log(place);
-     // alert(place.geometry.location.lat());
-     // alert(place.geometry.location.lng());
-      /*
-      for (var component in componentForm) {
-        document.getElementById(component).value = '';
-        document.getElementById(component).disabled = false;
-      }
 
-      // Get each component of the address from the place details
-      // and fill the corresponding field on the form.
-      for (var i = 0; i < place.address_components.length; i++) {
-        var addressType = place.address_components[i].types[0];
-        if (componentForm[addressType]) {
-          var val = place.address_components[i][componentForm[addressType]];
-          document.getElementById(addressType).value = val;
-        }
-      }*/
     }
-    // [END region_fillform]
 
-    // [START region_geolocation]
-    // Bias the autocomplete object to the user's geographical location,
-    // as supplied by the browser's 'navigator.geolocation' object.
     function geolocate() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -225,6 +134,12 @@
              margin-bottom: 2px;
           }
           .classField{
+             position: relative;
+             width: 280px;
+             height: 20px;
+             margin-bottom: 2px;
+          }
+          .scheduleField{
              position: relative;
              width: 280px;
              height: 20px;
@@ -291,13 +206,30 @@
 
                 <div id="divClass" class="form-group">
                      <label for="InputClass1">Class/Team</label>
-                     <div class="input-group classField">
+                      <div class="row">
+                        <div class="col-sm-6"><input type="text" class="form-control" name="InputClass1" id="InputClass1" placeholder="Enter Class" value="" required></div>
+                        <div class="col-sm-3"><input type="text" class="form-control" name="InputStartAge1" id="InputStartAge1" placeholder="Enter Start Age" value=""></div>
+                        <div class="col-sm-3"><input type="text" class="form-control" name="InputEndAge1" id="InputEndAge1" placeholder="Enter End Age" value=""></div>
+                      </div>
+                     <!--<div class="input-group classField">
                         <input type="text" class="form-control" name="InputClass1" id="InputClass1" placeholder="Enter Class" value="" required>
-                    </div>
+                        <input type="text" class="form-control" name="InputStartAge1" id="InputStartAge1" placeholder="Enter Start Age" value="">
+                        <input type="text" class="form-control" name="InputEndAge1" id="InputEndAge1" placeholder="Enter End Age" value="">
+                    </div>-->
                 </div>
                 <div class="form-group">
 
                     <button type="button" id="btnAddClass" class="btn btn-link">Add Class/Team</button>
+                </div>
+                <div id="divSchedule" class="form-group">
+                     <label for="InputClass1">Club Schedule</label>
+                     <div class="input-group classField">
+                        <input type="text" class="form-control" name="InputSchedule1" id="InputSchedule1" placeholder="Enter Schedule Name" value="" required>
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <button type="button" id="btnAddSchedule" class="btn btn-link">Add Schedule</button>
                 </div>
                <!-- <div id="locationgroup" class="form-group" style="display:none">
                    <div class="row">
@@ -341,6 +273,7 @@
 
             <input type="hidden" name="locationCounter" id="locationCounter" value="">
             <input type="hidden" name="classCounter" id="classCounter" value="">
+            <input type="hidden" name="scheduleCounter" id="scheduleCounter" value="">
         </form>
 
     </div>
