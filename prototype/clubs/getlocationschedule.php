@@ -3,14 +3,22 @@
 
   try {
       $model = new Models_General();
-      $club_location_id = $_REQUEST['club_location_id'];
+      //$club_location_id = $model->qstr($_GET['club_location_id']);
+      //$club_session_id = $model->qstr($_GET['session_id']);
+      $club_location_id = $_GET['club_location_id'];
+      $club_session_id = $_GET['session_id'];
 
-      $query = "SELECT cs.*,ch.*,cls.class_name FROM class_setup cs join class_schedule ch on cs.class_id=ch.class_id and cs.club_location_id=ch.club_location_id join club_class cls on cls.club_classid=cs.club_classid WHERE ch.Club_Location_Id = ? ORDER BY ch.Created_Date DESC";
+      $query = "SELECT cs.*,ch.*,cls.* FROM club_session_setup cs join class_schedule ch on cs.class_session_id=ch.class_session_id ";
+      $query = $query. " join club_class cls on cls.club_class_id=ch.club_class_id WHERE cs.Club_Location_Id = ? ";
+      $query = $query. " ORDER BY ch.Created_Date DESC";
       //echo($query);
-      //echo($club_location_id);
+      //exit;
+      //echo("club_session_id".$club_session_id);
+      //echo("club_location_id".$club_location_id);
+      //exit;
       $resultModuleFields = $model->fetchAll($query, array($club_location_id), 0);
        //pr($resultModuleFields);
-         // exit;
+          //exit;
           if (empty($resultModuleFields)) {
             echo "No schedule found";
             exit;
@@ -29,7 +37,7 @@
               <th>Class End Age</th>
               <th>Class Start Date</th>
               <th>Class End Date</th>
-              <th>#Sessions</th>
+              <th>#Classes</th>
               <th>Class Day</th>
               <th>Class Start Time</th>
               <th>Class End Time</th>
@@ -43,6 +51,8 @@
             $btnId = "btnCopySchedule".$row_counter;
             $btnEdit = "btnEditSchedule".$row_counter;
             $btnDelete = "btnDeleteSchedule".$row_counter;
+            $start_time=date('g:i:s', strtotime($v['Class_Start_Time']));
+            $end_time=date('g:i:s', strtotime($v['Class_End_Time']));
             //echo($v['Class_Day']);
         ?>
 
@@ -53,15 +63,14 @@
               <td><?php echo $v['End_Age']; ?></td>
               <td><?php echo $v['Start_Date']; ?></td>
               <td><?php echo $v['End_Date']; ?></td>
-               <td><?php echo $v['Sessions']; ?></td>
+               <td><?php echo $v['Classes']; ?></td>
               <td><?php echo $v['Class_Day']; ?></td>
-              <td><?php echo $v['Class_Start_Time']; ?></td>
-              <td><?php echo $v['Class_End_Time']; ?></td>
+              <td><?php echo $start_time ?></td>
+              <td><?php echo $end_time ?></td>
               <td><button type="button" id="<?php echo $btnId; ?>" class="btn btn-primary btn-sm btn-block" onclick="copySchedule('<?php echo $v['Class_Schedule_Id']; ?>')">
               Copy</button></td>
-             <!-- <td><button type="button" id="<?php echo $btnEdit; ?>" class="btn btn-primary btn-sm btn-block" onclick="editSchedule('<?php echo $v['Class_Schedule_Id']; ?>')">
-              Edit</button></td>-->
-              <td><button type="button" id="<?php echo $btnDelete; ?>" class="btn btn-primary btn-sm btn-block" onclick="deleteSchedule('<?php echo $v['Class_Id']; ?>')">
+
+              <td><button type="button" id="<?php echo $btnDelete; ?>" class="btn btn-primary btn-sm btn-block" onclick="deleteSchedule('<?php echo $v['Class_Schedule_Id']; ?>')">
               Delete</button></td>
             </tr>
 
