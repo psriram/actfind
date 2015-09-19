@@ -4,14 +4,14 @@
   $layoutFile = 'layouts/home/templateClub';
   $pageTitle = 'Join a club';
   $model = new Models_General();
-  $params['where'] = " and Club_Id=".$model->qstr($_SESSION['club_id']);
+  $params['where'] = " and club_Id=".$model->qstr($_SESSION['club_id']);
   $clubLocations = $model->getDetails('club_location',$params);
 
   //$params['where'] = " and Club_Id=".$model->qstr($_SESSION['club_id']);
   //$clubClasses = $model->getDetails('club_class',$params);
   //pr($clubClasses);
   //exit;
-  $params['where'] = " and Club_Id=".$model->qstr($_SESSION['club_id']);
+  $params['where'] = " and club_Id=".$model->qstr($_SESSION['club_id']);
   $clubScheduleSetup = $model->getDetails('club_schedule_type',$params);
 
 
@@ -47,7 +47,7 @@
     </div>
      <hr />
     <div class="row">
-        <form role="form" method="post" name="formSchedule" id="formSchedule" action="/activityfinder/prototype/clubs/saveschedule">
+        <form role="form" method="post" name="formSchedule" id="formSchedule" action="/actfind/prototype/clubs/saveschedule">
       <div class="col-sm-12">
 
         <div class="well well-sm"><strong><span>Create Team </span></div>
@@ -74,7 +74,7 @@
                           foreach ($clubLocations as $v) {
                             ?>
 
-                              <li role="presentation"><a role="menuitem" href="javascript:;" data-value="<?php echo $v['Club_Location_Id']; ?>" data-copy="<?php echo $v['Club_Location_Id']; ?>">
+                              <li role="presentation"><a role="menuitem" href="javascript:;" data-value="<?php echo $v['club_location_Id']; ?>" data-copy="<?php echo $v['club_location_Id']; ?>">
                               <?php echo $v['location']; ?>
                               </a></li>
 

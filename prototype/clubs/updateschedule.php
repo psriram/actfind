@@ -50,11 +50,11 @@
          $return = array('success' => 1, 'msg' => '');
          echo json_encode($return);
          exit;
-         //header("Location: /activityfinder/prototype/clubs/location_setup");
+         //header("Location: /actfind/prototype/clubs/location_setup");
 
       }
       else{
-        header("Location: /activityfinder/prototype/users/register?action=signup&callback=register");
+        header("Location: /actfind/prototype/users/register?action=signup&callback=register");
       }
 
   }

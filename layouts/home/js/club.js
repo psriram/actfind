@@ -9,7 +9,7 @@ function copySchedule(class_schedule_id){
     var location_name = $('#locKeywords').val();
     var data = {club_location_id : location_id,location_name:location_name}
     $.ajax({
-        url: "/activityfinder/prototype/clubs/getschedulehtml",
+        url: "/actfind/prototype/clubs/getschedulehtml",
         type: "GET",
         data: data,
         success: function(d) {
@@ -17,7 +17,7 @@ function copySchedule(class_schedule_id){
           var data = {schedule_id : class_schedule_id};
 
           $.ajax({
-                url: "/activityfinder/prototype/clubs/getschedule",
+                url: "/actfind/prototype/clubs/getschedule",
                 type: "GET",
                 data: data,
                 success: function(d) {
@@ -61,7 +61,7 @@ function editSchedule(class_schedule_id){
     $("#btnUpdateLocationClass").show();
     //var data = 'schedule_id='+ class_schedule_id
      $.ajax({
-                url: "/activityfinder/prototype/clubs/getschedule",
+                url: "/actfind/prototype/clubs/getschedule",
                 type: "POST",
                 data: data,
                 success: function(d) {
@@ -96,7 +96,7 @@ function deleteSchedule(class_schedule_id){
     var data = {class_schedule_id: class_schedule_id}
     //var data = 'schedule_id='+ class_schedule_id
      $.ajax({
-                url: "/activityfinder/prototype/clubs/deleteschedule",
+                url: "/actfind/prototype/clubs/deleteschedule",
                 type: "POST",
                 data: data,
                 success: function(d) {
@@ -107,7 +107,7 @@ function deleteSchedule(class_schedule_id){
 
                   var data = {club_location_id : location_id,location_name:location_name,session_id:session_id}
                   $.ajax({
-                        url: "/activityfinder/prototype/clubs/getlocationschedule",
+                        url: "/actfind/prototype/clubs/getlocationschedule",
                         type: "GET",
                         data: data,
                         success: function(d) {
@@ -182,7 +182,7 @@ function deleteSchedule(class_schedule_id){
       var data = {club_location_id : selectedOption,location_name:location_name};
     //var data = 'schedule_id='+ class_schedule_id
      $.ajax({
-                url: "/activityfinder/prototype/clubs/getlocationschedule",
+                url: "/actfind/prototype/clubs/getlocationschedule",
                 type: "GET",
                 data: data,
                 success: function(d) {
@@ -205,7 +205,7 @@ function deleteSchedule(class_schedule_id){
       $('#hdnScheduleSetup').val(selectedOption);
       /*if(selectedOption == 1){
        $.ajax({
-              url: "/activityfinder/prototype/clubs/getSessionSchedule",
+              url: "/actfind/prototype/clubs/getSessionSchedule",
               type: "GET",
               data: data,
               success: function(d) {
@@ -227,11 +227,11 @@ function deleteSchedule(class_schedule_id){
         var location_id = $("#hdnLocation").val();
         //var class_id = $("#hdnClass").val();
         var schedule_id = $('#hdnScheduleSetup').val();
-        //alert(location_id);
+
         //alert(schedule_id);
         $.ajax({
 
-                url: "/activityfinder/prototype/clubs/saveclasssession?location_id="+location_id+'&schedule_id='+schedule_id,
+                url: "/actfind/prototype/clubs/saveclasssession?location_id="+location_id+'&schedule_id='+schedule_id,
                 type: "post",
                 data: $("#formSchedule").serialize(),
                 success: function(d) {
@@ -241,7 +241,7 @@ function deleteSchedule(class_schedule_id){
                     var location_name = $('#locKeywords').val();
                     var data = {club_location_id : location_id,location_name:location_name}
                     $.ajax({
-                        url: "/activityfinder/prototype/clubs/getschedulehtml",
+                        url: "/actfind/prototype/clubs/getschedulehtml",
                         type: "GET",
                         data: data,
                         success: function(d) {
@@ -264,7 +264,7 @@ function deleteSchedule(class_schedule_id){
         var class_id = $('#hdnClassId').val();
         var class_schedule_id = $('#hdnClassScheduleId').val();
         $.ajax({
-                url: "/activityfinder/prototype/clubs/updateschedule?class_id="+class_id+'&class_schedule_id='+class_schedule_id,
+                url: "/actfind/prototype/clubs/updateschedule?class_id="+class_id+'&class_schedule_id='+class_schedule_id,
                 type: "post",
                 data: $("#formSchedule").serialize(),
                 success: function(d) {
@@ -272,7 +272,7 @@ function deleteSchedule(class_schedule_id){
                     var location_name = $('#locKeywords').val();
                     var data = {club_location_id : location_id,location_name:location_name}
                     $.ajax({
-                        url: "/activityfinder/prototype/clubs/getlocationschedule",
+                        url: "/actfind/prototype/clubs/getlocationschedule",
                         type: "GET",
                         data: data,
                         success: function(d) {

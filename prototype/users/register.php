@@ -71,7 +71,7 @@
             heading.appendChild(document.createTextNode(resp.displayName));
 
             //$.post( "/prototype/users/saveuser", resp);
-            $.post( "/activityfinder/prototype/users/saveuser",resp)
+            $.post( "/actfind/prototype/users/saveuser",resp)
               .done(function( data ) {
                 //alert( "Data Loaded: " + data );
                 //location.href="/";
@@ -104,7 +104,7 @@
            var resp = { email: email_val, password: passwd, name: name_val,action:"signup",type: "self" };
 
            //console.log(resp);
-           $.post( "/activityfinder/prototype/users/saveuser",resp)
+           $.post( "/actfind/prototype/users/saveuser",resp)
               .done(function( data ) {
                 var obj = JSON.parse(data);
 
@@ -115,7 +115,7 @@
                   return false;
                 }
                 else{
-                   location.href="/activityfinder";
+                   location.href="/actfind";
                 }
                 //location.href="/";
               },"json");
@@ -141,7 +141,7 @@
             //alert(passwd);
            var resp = { email: email_val, password: passwd, action:"login",type: "self" };
            //console.log(resp);
-           $.post( "/activityfinder/prototype/users/saveuser",resp)
+           $.post( "/actfind/prototype/users/saveuser",resp)
               .done(function( data ) {
                 var obj = JSON.parse(data);
                 //console.log(data);
@@ -154,10 +154,10 @@
                 else{
                   var callback_val = $("#hdnCallBack").val().trim();
                   if(callback_val == "register"){
-                    location.href="/activityfinder/prototype/clubs/join";
+                    location.href="/actfind/prototype/clubs/join";
                   }
                   else{
-                    location.href="/activityfinder";
+                    location.href="/actfind";
                   }
 
                 }
@@ -168,7 +168,7 @@
 
           $('#btnLogInLink').on('click', function(){
              var callback_val = $("#hdnCallBack").val().trim();
-             window.location.href="/activityfinder/prototype/users/register?action=signin&callback="+callback_val;
+             window.location.href="/actfind/prototype/users/register?action=signin&callback="+callback_val;
           });
       });
 </script>

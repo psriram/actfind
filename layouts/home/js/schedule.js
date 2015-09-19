@@ -38,7 +38,7 @@ $( document ).ready(function() {
 
         $.ajax({
 
-                url: "/activityfinder/prototype/clubs/saveschedule?club_class_id="+class_id+'&club_session_id='+session_id,
+                url: "/actfind/prototype/clubs/saveschedule?club_class_id="+class_id+'&club_session_id='+session_id,
                 type: "post",
                 data: $("#formSchedule").serialize(),
                 success: function(d) {
@@ -49,7 +49,7 @@ $( document ).ready(function() {
                     var location_name = $('#locKeywords').val();
                     var data = {club_location_id : location_id,location_name:location_name,session_id:session_id}
                     $.ajax({
-                        url: "/activityfinder/prototype/clubs/getlocationschedule",
+                        url: "/actfind/prototype/clubs/getlocationschedule",
                         type: "GET",
                         data: data,
                         success: function(d) {

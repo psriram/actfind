@@ -140,26 +140,26 @@ $('#simple-radius li').on('click', function(){
     $('#hdnRadius').val($(this).text().trim());
 });
 $('#btnFindLeague').on('click', function(){
-    window.location.href="/activityfinder#lnkradius";
+    window.location.href="/actfind#lnkradius";
 });
 $('#btnRegisterLeague').on('click', function(){
     var userId = $("#hdnUserId").val();
 
     if(userId==""){
-        window.location.href="/activityfinder/prototype/users/register?action=signup&callback=register";
+        window.location.href="/actfind/prototype/users/register?action=signup&callback=register";
     }
     else{
-        window.location.href="/activityfinder/prototype/clubs/join?action=step1";
+        window.location.href="/actfind/prototype/clubs/join?action=step1";
     }
 });
 $('#btnSignUp').on('click', function(){
-    window.location.href="/activityfinder/prototype/users/register?action=signup";
+    window.location.href="/actfind/prototype/users/register?action=signup";
 });
 $('#btnSignIn').on('click', function(){
-    window.location.href="/activityfinder/prototype/users/register?action=signin";
+    window.location.href="/actfind/prototype/users/register?action=signin";
 });
 $('#btnLogOut').on('click', function(){
-    window.location.href="/activityfinder/prototype/users/logout";
+    window.location.href="/actfind/prototype/users/logout";
 });
 $('#go').on('click', function(){
     //var city = $("#city_id").val();

@@ -92,8 +92,8 @@
                                           foreach ($clubSessions as $v) {
                                             ?>
 
-                                              <li role="presentation"><a role="menuitem" href="javascript:;" data-value="<?php echo $v['Class_Session_Id']; ?>" data-copy="<?php echo $v['Class_Session_Id']; ?>">
-                                              <?php echo $v['Session_Name']; ?>
+                                              <li role="presentation"><a role="menuitem" href="javascript:;" data-value="<?php echo $v['class_session_id']; ?>" data-copy="<?php echo $v['class_session_id']; ?>">
+                                              <?php echo $v['session_name']; ?>
                                               </a></li>
 
                                           <?php

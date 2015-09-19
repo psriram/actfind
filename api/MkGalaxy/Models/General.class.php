@@ -6,12 +6,12 @@ class Models_General extends App_base
     public function addDetails($tableName, $data=array(), $uid='')
     {
 
-     // pr($data);
-     // exit;
+
       $insertSQL = $this->_connMain->AutoExecute($tableName, $data, 'INSERT');
 
 
       $id = $this->_connMain->Insert_ID();
+
       return $id;
     }
 

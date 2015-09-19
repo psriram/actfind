@@ -3,6 +3,7 @@
   $model = new Models_ActivityFinder();
   $categoryDisplay = $model->category();
 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -233,7 +234,7 @@
         </section>--><!--slider main parallax-->
 
          <div class="divide40"></div>
-        <form id="searchForm" action="/activityfinder/layouts/home/searchresults" method="post">
+        <form id="searchForm" action="/actfind/layouts/home/searchresults" method="post">
         <div class="container">
         <div class="row">
             <div class="col-md-12">

@@ -18,7 +18,7 @@
  $( document ).ready(function() {
 
     $('#btnLogOut').on('click', function(){
-            window.location.href="/activityfinder/prototype/users/logout";
+            window.location.href="/actfind/prototype/users/logout";
     });
 
  });
